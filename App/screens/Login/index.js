@@ -6,16 +6,12 @@ import {
   Keyboard,
   Text,
   Image,
-  Alert,
-  FlatList
 } from "react-native";
 import styles from "@styles/styles";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../../../graphql/mutations";
 import { AuthContext } from "../../context/Auth";
 import images from "@assets/images";
-import {  TouchableOpacity } from "react-native-gesture-handler";
-import { SafeAreaInsetsContext } from "react-native-safe-area-context";
 
 export default function Login({ navigation }) {
   const [variables, setVariables] = useState({
@@ -25,7 +21,7 @@ export default function Login({ navigation }) {
   const [hidePassword, setHidePassword] = useState(true);
 
   const { signIn, signUp } = useContext(AuthContext);
-  const [text, setText] = useState("")
+
   const [login, { error }] = useMutation(LOGIN, {
     onError: (error) =>
       error.graphQLErrors.map(({ message }, i) => alert(`${message}`)),
@@ -51,56 +47,53 @@ export default function Login({ navigation }) {
     login({ variables });
   }
 
-  function MyHeader() {
-    return (
-      <View>
-        <Text>
-          tekst
-        </Text>
-      </View>
-    )
-  }
-
-  function MyFooter() {
-    return (
-      <View>
-        <Text>
-          tekst
-        </Text>
-        <TextInput
-        style={{
-          borderWidth: 2,
-          borderColor: "black",
-          padding: 20
-        }}
-          value={text}
-          onChangeText={(e) => setText(e)}
-        />
-      </View>
-    )
-  }
-
   return (
-    <View>
-    <FlatList 
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={{ flex: 1 }}>
+        <Image style={styles.peekabondLogo} source={images.peekabondLogo} />
+        <Text style={[styles.title, { marginTop: "10%" }]}>Login</Text>
+        <Text style={styles.inputLabel}>Email</Text>
+        <TextInput
+          style={styles.inputBox}
+          placeholder="Enter email..."
+          placeholderTextColor="grey"
+          onChangeText={(text) => setVariables({ ...variables, email: text })}
+          value={variables.email}
+        />
+        <Text style={styles.inputLabel}>Password</Text>
+        <TextInput
+          style={styles.inputBox}
+          placeholder="Enter password..."
+          placeholderTextColor="grey"
+          secureTextEntry={hidePassword}
+          onChangeText={(text) =>
+            setVariables({ ...variables, password: text })
+          }
+          value={variables.password}
+        />
+        {variables.password === "" ? null : (
+          <TouchableWithoutFeedback onPress={togglePassword}>
+            <Text style={styles.showPassword}>
+              {hidePassword ? "Show password" : "Hide password"}
+            </Text>
+          </TouchableWithoutFeedback>
+        )}
 
-    ListHeaderComponent={MyHeader}
-    ListFooterComponent={MyFooter}
-    removeClippedSubviews={false}
-    data={[0,1,2,3,4]}
-    renderItem={({item}) => {
-      return (
-        <TouchableOpacity
-        onPress={() => Alert.alert("press")}>
-          <Text>
-            press me
-          </Text>
-        </TouchableOpacity>
-      )
-    }
-    }
-    keyExtractor={(item) => String(item)}
-  />
-</View>
+        <TouchableWithoutFeedback onPress={submitForm}>
+          <View style={styles.loginButton}>
+            <Text style={styles.loginButtonText}>LOGIN</Text>
+          </View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPress={() => navigation.navigate("Password")}
+        >
+          <Text style={styles.bottomText}>FORGOT PASSWORD?</Text>
+        </TouchableWithoutFeedback>
+
+        <TouchableWithoutFeedback onPress={() => navigation.navigate("SignUp")}>
+          <Text style={styles.bottomText}>SIGNUP</Text>
+        </TouchableWithoutFeedback>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
