@@ -1,21 +1,65 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from "react";
+import CombineNavigators from "./App/navigation/CombineNavigators";
+import { Provider } from "react-redux";
+import store from "./App/store";
+import { AppRegistry } from "react-native";
+import { ApolloProvider } from "@apollo/client";
+import client from "@config/config";
+import {
+  useFonts,
+  Montserrat_400Regular,
+  Montserrat_700Bold,
+  Montserrat_600SemiBold,
+  Montserrat_500Medium,
+} from "@expo-google-fonts/montserrat";
+import { AppLoading } from "expo";
+//firebase configuration
+import * as firebase from "firebase";
+import {
+  apiKey,
+  authDomain,
+  databaseUrl,
+  projectId,
+  storageBucket,
+  messagingSenderId,
+  measurementId
+} from "@env";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+const firebaseConfig = {
+  apiKey: apiKey,
+  authDomain: authDomain,
+  databaseUrl: databaseUrl,
+  projectId: projectId,
+  storageBucket: storageBucket,
+  messagingSenderId: messagingSenderId,
+  measurementId: measurementId
+};
+
+
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  let [fontLoaded] = useFonts({
+    Montserrat_400Regular,
+    Montserrat_700Bold,
+    Montserrat_600SemiBold,
+    Montserrat_500Medium,
+  });
+
+  if (!fontLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <ApolloProvider client={client}>
+        <Provider store={store}>
+          <CombineNavigators />
+        </Provider>
+      </ApolloProvider>
+    );
+  }
+}
+
+AppRegistry.registerComponent("MyApplication", () => App);

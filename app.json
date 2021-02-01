@@ -2,14 +2,8 @@
   "expo": {
     "name": "ProjectLoloFrontEnd",
     "slug": "ProjectLoloFrontEnd",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -17,16 +11,22 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.atieh.ProjectLoloFron",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "This app uses your library to upload photo's and video's",
+        "NSCameraUsageDescription": "This app uses the camera to make video's"
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "",
         "backgroundColor": "#FFFFFF"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
+      },
+      "permissions": [
+        "CAMERA",
+        "AUDIO_RECORDING",
+        "CAMERA_ROLL"
+      ]
     }
   }
 }
