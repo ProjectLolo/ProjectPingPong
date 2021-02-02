@@ -1,10 +1,10 @@
-import React, { useEffect, useReducer, createContext } from "react";
+import React, {useEffect, useReducer, createContext} from "react";
 
 import jwtDecode from "jwt-decode";
 import AsyncStorage from "@react-native-community/async-storage";
 import AuthNavigator from "./AuthNavigator";
 import StackNavigator from "./StackNavigator";
-import { AuthContext } from "../context/Auth";
+import {AuthContext} from "../context/Auth";
 
 const AuthStateContext = createContext();
 
@@ -18,12 +18,12 @@ export default function CombineNavigators() {
         await AsyncStorage.setItem("userToken", token);
         dispatch({
           type: "SIGN_IN",
-          token: { token, decodedToken },
+          token: {token, decodedToken},
         });
       },
       signOut: async () => {
         await AsyncStorage.removeItem("userToken");
-        dispatch({ type: "SIGN_OUT" });
+        dispatch({type: "SIGN_OUT"});
       },
       signUp: async (data) => {
         console.log("WHAT IS IN THE SIGNUP DATA?", data);
@@ -32,17 +32,17 @@ export default function CombineNavigators() {
         await AsyncStorage.setItem("userToken", data);
         dispatch({
           type: "SIGN_IN",
-          token: { data, decodedToken, screen },
+          token: {data, decodedToken, screen},
         });
       },
       activeUser: async (data) => {
-        dispatch({ type: "SET_USER", id: data });
+        dispatch({type: "SET_USER", id: data});
       },
       activeKid: async (data) => {
-        dispatch({ type: "SET_KID", id: data });
+        dispatch({type: "SET_KID", id: data});
       },
       kidName: async (data) => {
-        dispatch({ type: "SET_KID_NAME", name: data });
+        dispatch({type: "SET_KID_NAME", name: data});
       },
     }),
     []
@@ -55,6 +55,7 @@ export default function CombineNavigators() {
         userToken = await AsyncStorage.getItem("userToken");
       } catch (e) {
         console.log(e);
+        userToken = undefined;
       }
       if (userToken != null && userToken != undefined) {
         const decodedToken = jwtDecode(userToken);
@@ -70,7 +71,7 @@ export default function CombineNavigators() {
         } else {
           dispatch({
             type: "RESTORE_TOKEN",
-            token: { userToken, decodedToken },
+            token: {userToken, decodedToken},
           });
         }
       }

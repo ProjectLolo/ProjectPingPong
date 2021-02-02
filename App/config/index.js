@@ -1,14 +1,13 @@
-import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
+import {ApolloClient, createHttpLink, InMemoryCache} from "@apollo/client";
+import {setContext} from "@apollo/client/link/context";
 import AsyncStorage from "@react-native-community/async-storage";
-import { server } from "@env";
+import {server} from "@env";
 
 const httpLink = createHttpLink({
-
   uri: server || "http://localhost:5000/graphql",
 });
 
-const authLink = setContext(async (_, { headers }) => {
+const authLink = setContext(async (_, {headers}) => {
   // get the authentication token from local storage if it exists
   let token;
   try {
