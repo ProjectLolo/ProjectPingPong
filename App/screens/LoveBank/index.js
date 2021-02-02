@@ -29,8 +29,6 @@ export default function LoveBank({route, navigation}) {
   useEffect(() => {
     refetch();
     setLoveBanks(data);
-
-    track();
   }, [refetch, data, isFocused]);
 
   return (
