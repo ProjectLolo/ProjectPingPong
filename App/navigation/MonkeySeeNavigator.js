@@ -1,17 +1,21 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import AnimalSelector from "../screens/CreateContent/MonkeySeeMonkeyDo/AnimalSelector";
-import GameStart from "../screens/CreateContent/MonkeySeeMonkeyDo/GameStart";
-import GetReady from "../screens/CreateContent/MonkeySeeMonkeyDo/GetReady";
-import ImitationPreview from "../screens/CreateContent/MonkeySeeMonkeyDo/ImitationPreview";
-import ImitationSent from "../screens/CreateContent/MonkeySeeMonkeyDo/ImitationSent";
-import RecordImitation from "../screens/CreateContent/MonkeySeeMonkeyDo/RecordImitation";
+import GuessAnimal from "../screens/CreateContent/MonkeySeeMonkeyDo/ReceiverScreens/GuessAnimal";
+import GuessStart from "../screens/CreateContent/MonkeySeeMonkeyDo/ReceiverScreens/GuessStart";
+import Success from "../screens/CreateContent/MonkeySeeMonkeyDo/ReceiverScreens/Success";
+import AnimalSelector from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/AnimalSelector";
+import GameStart from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/GameStart";
+import GetReady from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/GetReady";
+import ImitationPreview from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/ImitationPreview";
+import ImitationSent from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/ImitationSent";
+import RecordImitation from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/RecordImitation";
 
 const Stack = createStackNavigator();
 
 export const MonkeySeeMonkeyDoStack = ({}) => {
   return (
     <Stack.Navigator initialRouteName="GameStart">
+      {/* ------ senderscreens ------- */}
       <Stack.Screen
         name="GameStart"
         options={{
@@ -53,6 +57,29 @@ export const MonkeySeeMonkeyDoStack = ({}) => {
           header: () => null,
         }}
         component={ImitationSent}
+      />
+
+      {/* ------ senderscreens ------- */}
+      <Stack.Screen
+        name="GuessStart"
+        options={{
+          header: () => null,
+        }}
+        component={GuessStart}
+      />
+      <Stack.Screen
+        name="GuessAnimal"
+        options={{
+          header: () => null,
+        }}
+        component={GuessAnimal}
+      />
+      <Stack.Screen
+        name="Success"
+        options={{
+          header: () => null,
+        }}
+        component={Success}
       />
     </Stack.Navigator>
   );
