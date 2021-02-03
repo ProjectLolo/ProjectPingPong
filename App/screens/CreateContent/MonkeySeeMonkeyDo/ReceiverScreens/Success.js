@@ -16,7 +16,7 @@ export default function Success() {
       <Text>You've got it right!!!</Text>
       <TouchableOpacity onPress={() => navigation.navigate("AnimalSelector")}>
         <View style={styles.loginButton}>
-          <Text style={styles.loginButtonText}>Let's do another one</Text>
+          <Text style={styles.loginButtonText}>Let's play again</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("GameStart")}>
