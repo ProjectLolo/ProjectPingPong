@@ -1,3 +1,4 @@
+import colors from "@assets/colors";
 import React from "react";
 import { SafeAreaView, StyleSheet, Text } from "react-native";
 
@@ -9,8 +10,8 @@ const stylesNew = StyleSheet.create({
   },
   animalContainer: {
     backgroundColor: colors.purple,
-    height: windowHeight / 15,
-    width: windowWidth / 1.5,
+    height: "90%",
+    width: 30,
     borderRadius: 10,
     marginBottom: 5,
   },

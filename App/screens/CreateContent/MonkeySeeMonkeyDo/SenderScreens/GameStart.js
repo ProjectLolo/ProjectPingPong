@@ -25,3 +25,4 @@ export default function GameStart({ navigation }) {
     </View>
   );
 }
+s;
