@@ -1,9 +1,8 @@
-import React from "react";
-import {View, Text, TouchableWithoutFeedback, FlatList} from "react-native";
 import styles from "@styles/styles";
-import {goToAnimalSelector} from "./helpers";
+import React from "react";
+import { Text, TouchableWithoutFeedback, View } from "react-native";
 
-export default function GameStart() {
+export default function GameStart({ navigation }) {
   return (
     <View
       style={{
@@ -11,14 +10,16 @@ export default function GameStart() {
         justifyContent: "space-evenly",
       }}
     >
-      <Text style={[styles.title, {marginTop: 0}]}>
+      <Text style={[styles.title, { marginTop: 0 }]}>
         {"Let's play monkey see, monkey do \n"}
         {
           "You imitate an animal, and [other family member] \n has to guess which one you imitated"
         }
       </Text>
-      <TouchableWithoutFeedback onPress={goToAnimalSelector}>
-        <View style={[styles.loginButton, {marginBottom: "5%"}]}>
+      <TouchableWithoutFeedback
+        onPress={() => navigation.navigate("AnimalSelector")}
+      >
+        <View style={[styles.loginButton, { marginBottom: "5%" }]}>
           <Text style={styles.loginButtonText}>Understood. Let's go!</Text>
         </View>
       </TouchableWithoutFeedback>
