@@ -1,7 +1,7 @@
 import React from "react";
-import * as Analytics from 'expo-firebase-analytics';
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import * as Analytics from "expo-firebase-analytics";
+import {NavigationContainer} from "@react-navigation/native";
+import {createStackNavigator} from "@react-navigation/stack";
 import CreateFamilyMember from "../screens/CreateFamilyMember";
 import KidCircles from "../screens/KidCircles";
 import CreateKidCircle from "../screens/CreateKidCircle";
@@ -28,8 +28,9 @@ import Teach from "../screens/CreateContent/Teach";
 import MessageSent from "../screens/CreateContent/MessageSent";
 import VideoPreview from "../components/VideoPreview";
 import Share from "../screens/CreateContent/Share";
+import MonkeySeeMonkeyDoGameStart from "../screens/CreateContent/MonkeySeeMonkeyDo/GameStart";
 
-export default function authNavigator({ route, state }) {
+export default function authNavigator({route, state}) {
   const Stack = createStackNavigator();
 
   function getActiveRouteName(navigationState) {
@@ -46,9 +47,9 @@ export default function authNavigator({ route, state }) {
         initialRouteName={
           state.screen === "SignUp" ? "UploadUserProfile" : "KidCircles"
         }
-        screenOptions={{ headerShown: false }}
+        screenOptions={{headerShown: false}}
         onNavigationStateChange={(prevState, currentState) => {
-          console.log("ANALYTICS")
+          console.log("ANALYTICS");
           const currentScreen = getActiveRouteName(currentState);
           const prevScreen = getActiveRouteName(prevState);
           if (prevScreen !== currentScreen) {
@@ -122,6 +123,10 @@ export default function authNavigator({ route, state }) {
         <Stack.Screen name="Activate" component={Activate} />
         <Stack.Screen name="Fun" component={Fun} />
         <Stack.Screen name="Memory" component={Memory} />
+        <Stack.Screen
+          name="MonkeySeeMonkeyDoGameStart"
+          component={MonkeySeeMonkeyDoGameStart}
+        />
         <Stack.Screen name="ReadAStory" component={ReadAStory} />
         <Stack.Screen name="Story" component={Story} />
         <Stack.Screen

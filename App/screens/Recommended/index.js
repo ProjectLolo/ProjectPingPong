@@ -62,7 +62,7 @@ export default function Recommended({route, navigation}) {
     {
       id: 4,
       image: images.monkey,
-      nav: "ShareSomething",
+      nav: "MonkeySeeMonkeyDoGameStart",
       stories: sing,
     },
   ];
