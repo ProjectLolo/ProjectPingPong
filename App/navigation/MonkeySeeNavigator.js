@@ -15,7 +15,7 @@ const Stack = createStackNavigator();
 export const MonkeySeeMonkeyDoStack = ({}) => {
   return (
     <Stack.Navigator initialRouteName="GameStart">
-      {/* ------ senderscreens ------- */}
+      {/* ------ sender screens ------- */}
       <Stack.Screen
         name="GameStart"
         options={{
@@ -59,7 +59,7 @@ export const MonkeySeeMonkeyDoStack = ({}) => {
         component={ImitationSent}
       />
 
-      {/* ------ senderscreens ------- */}
+      {/* ------ receiver screens ------- */}
       <Stack.Screen
         name="GuessStart"
         options={{

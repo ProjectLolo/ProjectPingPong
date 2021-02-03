@@ -1,7 +1,9 @@
+import styles from "@styles/styles";
 import React from "react";
-import { SafeAreaView, StyleSheet, Text } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-const styles = StyleSheet.create({
+const stylesNew = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
@@ -9,10 +11,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function GetReady() {
+export default function GetReady({ navigation }) {
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>This is get ready screen</Text>
+    <SafeAreaView style={stylesNew.container}>
+      <Text>Are you ready to unleash your inner monkey?</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("RecordImitation")}>
+        <View style={styles.loginButton}>
+          <Text style={styles.loginButtonText}>Let's go!</Text>
+        </View>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
