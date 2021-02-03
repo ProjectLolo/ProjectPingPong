@@ -1,6 +1,7 @@
 import React from "react";
 import {View, Text, TouchableWithoutFeedback, FlatList} from "react-native";
 import styles from "@styles/styles";
+import {goToAnimalSelector} from "./helpers";
 
 export default function GameStart() {
   return (
@@ -16,6 +17,11 @@ export default function GameStart() {
           "You imitate an animal, and [other family member] \n has to guess which one you imitated"
         }
       </Text>
+      <TouchableWithoutFeedback onPress={goToAnimalSelector}>
+        <View style={[styles.loginButton, {marginBottom: "5%"}]}>
+          <Text style={styles.loginButtonText}>Understood. Let's go!</Text>
+        </View>
+      </TouchableWithoutFeedback>
     </View>
   );
 }
