@@ -35,6 +35,9 @@ export default function Recommended({route, navigation}) {
   useEffect(() => {
     refetch();
     data && setKidData(data);
+    return function cleanup() {
+      setKidData("");
+    };
   }, [data, isFocused, refetch]);
 
   const cardContent = [
