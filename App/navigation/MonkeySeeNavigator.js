@@ -1,5 +1,6 @@
-import { createStackNavigator } from "@react-navigation/stack";
+import {createStackNavigator} from "@react-navigation/stack";
 import React from "react";
+
 import GuessAnimal from "../screens/CreateContent/MonkeySeeMonkeyDo/ReceiverScreens/GuessAnimal";
 import GuessStart from "../screens/CreateContent/MonkeySeeMonkeyDo/ReceiverScreens/GuessStart";
 import Success from "../screens/CreateContent/MonkeySeeMonkeyDo/ReceiverScreens/Success";
@@ -9,6 +10,7 @@ import GetReady from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/G
 import ImitationPreview from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/ImitationPreview";
 import ImitationSent from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/ImitationSent";
 import RecordImitation from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/RecordImitation";
+
 
 const Stack = createStackNavigator();
 
@@ -30,6 +32,7 @@ export const MonkeySeeMonkeyDoStack = ({}) => {
         }}
         component={AnimalSelector}
       />
+
       <Stack.Screen
         name="GetReady"
         options={{
