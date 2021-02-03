@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, TouchableWithoutFeedback, FlatList } from "react-native";
+import React, {useEffect, useState} from "react";
+import {View, Text, TouchableWithoutFeedback, FlatList} from "react-native";
 import styles from "@styles/styles";
 import images from "@assets/images";
 import ActivityCard from "../../components/ActivityCard";
@@ -16,17 +16,16 @@ import {
   memory,
 } from "../CreateContent/tempStories";
 
-import { useQuery } from "@apollo/client";
-import { GET_ALL_KIDS } from "../../../graphql/queries";
-import { useIsFocused } from "@react-navigation/native";
+import {useQuery} from "@apollo/client";
+import {GET_ALL_KIDS} from "../../../graphql/queries";
+import {useIsFocused} from "@react-navigation/native";
 
-
-export default function Recommended({ route, navigation }) {
+export default function Recommended({route, navigation}) {
   const isFocused = useIsFocused();
   const [showMore, setShowMore] = useState(false);
   const [kidData, setKidData] = useState("");
 
-  const { data, refetch, loading: dataLoading } = useQuery(GET_ALL_KIDS, {
+  const {data, refetch, loading: dataLoading} = useQuery(GET_ALL_KIDS, {
     variables: {
       userId: route.params.activeUser,
     },
@@ -36,8 +35,10 @@ export default function Recommended({ route, navigation }) {
   useEffect(() => {
     refetch();
     data && setKidData(data);
+    return function cleanup() {
+      setKidData("");
+    };
   }, [data, isFocused, refetch]);
-
 
   const cardContent = [
     {
@@ -60,37 +61,14 @@ export default function Recommended({ route, navigation }) {
     },
     {
       id: 4,
-      image: images.Sing,
-      nav: "SingASong",
+      image: images.monkey,
+      nav: "MonkeySeeMonkeyDoGameStart",
       stories: sing,
     },
   ];
 
   const cardContent2 = [
-    {
-      id: 1,
-      image: images.Share,
-      nav: "ShareSomething",
-      stories: share,
-    },
-    {
-      id: 2,
-      image: images.Read,
-      nav: "ReadAStory",
-      stories: read,
-    },
-    {
-      id: 3,
-      image: images.Teach,
-      nav: "Teach",
-      stories: teach,
-    },
-    {
-      id: 4,
-      image: images.Sing,
-      nav: "SingASong",
-      stories: sing,
-    },
+    ...cardContent,
     {
       id: 5,
       image: images.Activate,
@@ -109,6 +87,12 @@ export default function Recommended({ route, navigation }) {
       nav: "Memory",
       stories: memory,
     },
+    {
+      id: 4,
+      image: images.Sing,
+      nav: "SingASong",
+      stories: sing,
+    },
   ];
 
   return (
@@ -119,12 +103,12 @@ export default function Recommended({ route, navigation }) {
       }}
     >
       <NavHome screen="Recommended" />
-      <Text style={[styles.title, { marginTop: 0 }]}>
+      <Text style={[styles.title, {marginTop: 0}]}>
         {"What do you want to \n share today?"}
       </Text>
       {!showMore ? (
         <FlatList
-          style={{ marginBottom: "-5%", marginTop: "-5%" }}
+          style={{marginBottom: "-5%", marginTop: "-5%"}}
           contentContainerStyle={{
             alignSelf: "center",
             flexGrow: 1,
@@ -134,7 +118,7 @@ export default function Recommended({ route, navigation }) {
           data={cardContent}
           numColumns={2}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => {
+          renderItem={({item}) => {
             return (
               <ActivityCard
                 image={item.image}
@@ -146,7 +130,7 @@ export default function Recommended({ route, navigation }) {
         />
       ) : (
         <FlatList
-          style={{ marginBottom: 10 }}
+          style={{marginBottom: 10}}
           contentContainerStyle={{
             alignSelf: "center",
             flexGrow: 1,
@@ -156,7 +140,7 @@ export default function Recommended({ route, navigation }) {
           data={cardContent2}
           numColumns={2}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => {
+          renderItem={({item}) => {
             return (
               <TouchableWithoutFeedback>
                 <ActivityCard
@@ -173,7 +157,7 @@ export default function Recommended({ route, navigation }) {
         <TouchableWithoutFeedback
           onPress={() => (!showMore ? setShowMore(true) : setShowMore(false))}
         >
-          <View style={[styles.loginButton, { marginBottom: "5%" }]}>
+          <View style={[styles.loginButton, {marginBottom: "5%"}]}>
             <Text style={styles.loginButtonText}>SEE MORE SUGGESTIONS</Text>
           </View>
         </TouchableWithoutFeedback>

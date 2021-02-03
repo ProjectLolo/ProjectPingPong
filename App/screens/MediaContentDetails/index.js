@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import * as firebase from "firebase";
 import {
   View,
@@ -10,10 +10,10 @@ import {
   StyleSheet,
   TouchableWithoutFeedbackBase,
 } from "react-native";
-import { Video } from "expo-av";
+import {Video} from "expo-av";
 
 import NavHome from "../../components/NavHome";
-import { useNavigation } from "@react-navigation/native";
+import {useNavigation} from "@react-navigation/native";
 import MediaContentComments from "../../components/MediaContentComments";
 import EnlargeVideo from "../../components/EnlargeVideo";
 import styles from "@styles/styles";
@@ -21,13 +21,13 @@ import adjust from "../../styles/adjust";
 import images from "@assets/colors";
 import fonts from "@assets/fonts";
 import colors from "@assets/colors";
-import { useQuery, useMutation } from "@apollo/client";
-import { CREATE_LIKE, DELETE_LOVEBANK } from "../../../graphql/mutations";
-import { GET_COMMENTS_AND_LIKES } from "../../../graphql/queries";
-import { useIsFocused } from "@react-navigation/native";
+import {useQuery, useMutation} from "@apollo/client";
+import {CREATE_LIKE, DELETE_LOVEBANK} from "../../../graphql/mutations";
+import {GET_COMMENTS_AND_LIKES} from "../../../graphql/queries";
+import {useIsFocused} from "@react-navigation/native";
 import CommentBox from "../../components/CommentBox";
 
-export default function MediaContentDetails({ navigation, route }) {
+export default function MediaContentDetails({navigation, route}) {
   const [comments, setComments] = useState(false);
   const [liked, setLiked] = useState(false);
   const [likeLength, setLikeLength] = useState(0);
@@ -48,13 +48,13 @@ export default function MediaContentDetails({ navigation, route }) {
     recImage,
     likes,
   } = route.params;
-  
+
   const Navigation = useNavigation();
-  const { goBack } = Navigation;
+  const {goBack} = Navigation;
 
   console.log(route.params);
 
-  const { data, refetch } = useQuery(GET_COMMENTS_AND_LIKES, {
+  const {data, refetch} = useQuery(GET_COMMENTS_AND_LIKES, {
     variables: {
       _id: loveBankId,
       kidId: activeKid,
@@ -70,7 +70,7 @@ export default function MediaContentDetails({ navigation, route }) {
     },
   });
 
-  const [giveLike, { data: likeData }] = useMutation(CREATE_LIKE, {
+  const [giveLike, {data: likeData}] = useMutation(CREATE_LIKE, {
     variables: {
       loveBankId: loveBankId,
     },
@@ -79,7 +79,7 @@ export default function MediaContentDetails({ navigation, route }) {
     },
   });
 
-  const [deleteLovebank, { data: deletedData }] = useMutation(DELETE_LOVEBANK, {
+  const [deleteLovebank, {data: deletedData}] = useMutation(DELETE_LOVEBANK, {
     variables: {
       loveBankId: loveBankId,
     },
@@ -134,7 +134,7 @@ export default function MediaContentDetails({ navigation, route }) {
           style: "cancel",
         },
       ],
-      { cancelable: false }
+      {cancelable: false}
     );
   }
 
@@ -152,7 +152,7 @@ export default function MediaContentDetails({ navigation, route }) {
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
       <FlatList
         ListHeaderComponent={
           <>
@@ -178,7 +178,7 @@ export default function MediaContentDetails({ navigation, route }) {
                       height: 192,
                     },
                   ]}
-                  source={{ uri: preview }}
+                  source={{uri: preview}}
                 />
               </TouchableWithoutFeedback>
 
@@ -279,7 +279,7 @@ export default function MediaContentDetails({ navigation, route }) {
         data={comments.loveBankById.comments}
         numColumns={1}
         keyExtractor={(item) => item._id.toString()}
-        renderItem={({ item }) => {
+        renderItem={({item}) => {
           return (
             <TouchableWithoutFeedback
               onPress={() => navigation.navigate("MediaContentDetails")}
@@ -294,7 +294,9 @@ export default function MediaContentDetails({ navigation, route }) {
           );
         }}
       />
-      {startVideo && <EnlargeVideo video={video} type={type} hide={hideOptions} />}
+      {startVideo && (
+        <EnlargeVideo video={video} type={type} hide={hideOptions} />
+      )}
     </View>
   );
 }

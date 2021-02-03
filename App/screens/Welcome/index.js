@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
   View,
   Text,
@@ -12,7 +12,7 @@ import style from "@styles/styles";
 import ExplanationCarousel from "../../components/ExplanationCarousel";
 
 const screenWidth = Dimensions.get("window").width;
-export default function Welcome({ navigation }) {
+export default function Welcome({navigation}) {
   const [animation, setAnimation] = useState(false);
 
   useEffect(() => {
@@ -23,12 +23,12 @@ export default function Welcome({ navigation }) {
   }, []);
 
   return (
-    <View style={{ flex: 1, justifyContent: "space-between" }}>
+    <View style={{flex: 1, justifyContent: "space-between"}}>
       <Image style={style.peekabondLogo} source={images.peekabondLogo} />
       <ExplanationCarousel />
 
       <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-        <View style={[style.loginButton, { marginVertical: "15%" }]}>
+        <View style={[style.loginButton, {marginVertical: "15%"}]}>
           <Text style={style.loginButtonText}>Continue</Text>
         </View>
       </TouchableOpacity>
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     width: screenWidth * 0.3,
   },
-  buttonText: { alignSelf: "center", color: "white" },
+  buttonText: {alignSelf: "center", color: "white"},
   swipeContainer: {
     position: "absolute",
     backgroundColor: "rgba(255, 255, 255, 0.5)",
