@@ -124,7 +124,7 @@ export default function authNavigator({ route, state }) {
         <Stack.Screen name="Fun" component={Fun} />
         <Stack.Screen name="Memory" component={Memory} />
         <Stack.Screen
-          name="MonkeySeeMonkeyDoGameStart"
+          name="MonkeySeeMonkeyDo"
           component={MonkeySeeMonkeyDoStack}
         />
         <Stack.Screen name="ReadAStory" component={ReadAStory} />
