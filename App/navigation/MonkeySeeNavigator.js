@@ -1,5 +1,4 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import React from "react";
 import GuessAnimal from "../screens/CreateContent/MonkeySeeMonkeyDo/ReceiverScreens/GuessAnimal";
 import GuessStart from "../screens/CreateContent/MonkeySeeMonkeyDo/ReceiverScreens/GuessStart";
 import Success from "../screens/CreateContent/MonkeySeeMonkeyDo/ReceiverScreens/Success";
@@ -15,7 +14,6 @@ const Stack = createStackNavigator();
 export const MonkeySeeMonkeyDoStack = ({}) => {
   return (
     <Stack.Navigator initialRouteName="GameStart">
-      {/* ------ sender screens ------- */}
       <Stack.Screen
         name="GameStart"
         options={{
@@ -30,7 +28,6 @@ export const MonkeySeeMonkeyDoStack = ({}) => {
         }}
         component={AnimalSelector}
       />
-
       <Stack.Screen
         name="GetReady"
         options={{
@@ -59,8 +56,6 @@ export const MonkeySeeMonkeyDoStack = ({}) => {
         }}
         component={ImitationSent}
       />
-
-      {/* ------ receiver screens ------- */}
       <Stack.Screen
         name="GuessStart"
         options={{
