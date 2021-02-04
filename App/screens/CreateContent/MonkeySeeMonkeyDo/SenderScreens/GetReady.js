@@ -11,10 +11,11 @@ const stylesNew = StyleSheet.create({
   },
 });
 
-export default function GetReady({navigation, animal}) {
+export default function GetReady({route, navigation}) {
+  const {animal} = route.params;
   return (
     <SafeAreaView style={stylesNew.container}>
-      <Text>{`Are you ready to unleash your inner monkey?`}</Text>
+      <Text>{`Are you ready to unleash your inner ${animal}?`}</Text>
       <TouchableOpacity onPress={() => navigation.navigate("RecordImitation")}>
         <View style={styles.loginButton}>
           <Text style={styles.loginButtonText}>Let's go!</Text>

@@ -26,14 +26,18 @@ export default function AnimalSelector({navigation}) {
       }}
     >
       <Text style={[styles.title, {marginTop: 0}]}>{"Pick an animal \n"}</Text>
-      <TouchableWithoutFeedback onPress={() => navigation.navigate("GetReady")}>
+      <TouchableWithoutFeedback
+        onPress={() => navigation.navigate("GetReady", {animal: animal1})}
+      >
         <View style={styles.touchableCard}>
           <Image style={styles.animalImage} source={animal1Picture} />
           <Text> {animal1} </Text>
         </View>
       </TouchableWithoutFeedback>
 
-      <TouchableWithoutFeedback onPress={() => navigation.navigate("GetReady")}>
+      <TouchableWithoutFeedback
+        onPress={() => navigation.navigate("GetReady", {animal: animal2})}
+      >
         <View style={styles.touchableCard}>
           <Image style={styles.animalImage} source={animal2Picture} />
           <Text> {animal2} </Text>
