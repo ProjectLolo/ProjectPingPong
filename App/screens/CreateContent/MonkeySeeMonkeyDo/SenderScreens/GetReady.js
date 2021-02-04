@@ -5,6 +5,8 @@ import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styles from "../../../../styles/index";
 
+
+
 const stylesNew = StyleSheet.create({
   container: {
     flex: 1,
@@ -12,6 +14,7 @@ const stylesNew = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
 
 export default function GetReady({ route, navigation }) {
   const takeVideo = async () => {
@@ -34,7 +37,7 @@ export default function GetReady({ route, navigation }) {
   };
 
   return (
-    <SafeAreaView style={stylesNew.container}>
+   <SafeAreaView style={stylesNew.container}>
       <Text>Are you ready to unleash your inner monkey?</Text>
       <TouchableOpacity onPress={takeVideo}>
         <View style={styles.loginButton}>

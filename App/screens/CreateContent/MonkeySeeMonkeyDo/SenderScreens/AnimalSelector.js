@@ -1,44 +1,51 @@
-import colors from "@assets/colors";
+import React, {useState, useEffect} from "react";
+import {
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  Image,
+  FlatList,
+} from "react-native";
 import styles from "@styles/styles";
-import React from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { windowHeight, windowWidth } from "../../../../assets/utils/dimentions";
+import {chooseAnimalAtRandom} from "../../../../assets/animalList";
+import ActivityCard from "../../../../components/StoryCard";
 
-const stylesNew = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  animalContainer: {
-    backgroundColor: colors.purple,
-    height: windowHeight / 15,
-    width: windowWidth / 1.5,
-    borderRadius: 10,
-    marginBottom: 5,
-  },
-});
+export default function AnimalSelector({navigation}) {
+  const [refreshSwitch, setRefreshSwitch] = useState(true);
+  const {animal: animal1, picture: animal1Picture} = chooseAnimalAtRandom();
+  const {animal: animal2, picture: animal2Picture} = chooseAnimalAtRandom();
+  useEffect(() => {
+    //refreshes the component to get new animals
+  }, [refreshSwitch]);
 
-export default function AnimalSelector({ navigation }) {
   return (
-    <SafeAreaView style={stylesNew.container}>
-      <Text>Pick an animal!</Text>
-      <TouchableOpacity onPress={() => navigation.navigate("GetReady")}>
-        <View style={stylesNew.animalContainer}>
-          <Text>elphant</Text>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "space-around",
+      }}
+    >
+      <Text style={[styles.title, {marginTop: 0}]}>{"Pick an animal \n"}</Text>
+      <TouchableWithoutFeedback onPress={() => navigation.navigate("GetReady")}>
+        <View style={styles.touchableCard}>
+          <Image style={styles.animalImage} source={animal1Picture} />
+          <Text> {animal1} </Text>
         </View>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("GetReady")}>
-        <View style={stylesNew.animalContainer}>
-          <Text>monkey</Text>
+      </TouchableWithoutFeedback>
+
+      <TouchableWithoutFeedback onPress={() => navigation.navigate("GetReady")}>
+        <View style={styles.touchableCard}>
+          <Image style={styles.animalImage} source={animal2Picture} />
+          <Text> {animal2} </Text>
         </View>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <View style={styles.loginButton}>
-          <Text style={styles.loginButtonText}>Get new animals</Text>
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback
+        onPress={() => setRefreshSwitch(!refreshSwitch)}
+      >
+        <View style={[styles.loginButton, {marginBottom: "5%"}]}>
+          <Text style={styles.loginButtonText}>I want other animals</Text>
         </View>
-      </TouchableOpacity>
-    </SafeAreaView>
+      </TouchableWithoutFeedback>
+    </View>
   );
 }

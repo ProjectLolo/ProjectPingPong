@@ -1,10 +1,10 @@
-import { useQuery } from "@apollo/client";
+import {useQuery} from "@apollo/client";
 import images from "@assets/images";
-import { useIsFocused } from "@react-navigation/native";
+import {useIsFocused} from "@react-navigation/native";
 import styles from "@styles/styles";
-import React, { useEffect, useState } from "react";
-import { FlatList, Text, TouchableWithoutFeedback, View } from "react-native";
-import { GET_ALL_KIDS } from "../../../graphql/queries";
+import React, {useEffect, useState} from "react";
+import {FlatList, Text, TouchableWithoutFeedback, View} from "react-native";
+import {GET_ALL_KIDS} from "../../../graphql/queries";
 import ActivityCard from "../../components/ActivityCard";
 import NavButtons from "../../components/NavButtons";
 import NavHome from "../../components/NavHome";
@@ -18,12 +18,12 @@ import {
   teach,
 } from "../CreateContent/tempStories";
 
-export default function Recommended({ route, navigation }) {
+export default function Recommended({route, navigation}) {
   const isFocused = useIsFocused();
   const [showMore, setShowMore] = useState(false);
   const [kidData, setKidData] = useState("");
 
-  const { data, refetch, loading: dataLoading } = useQuery(GET_ALL_KIDS, {
+  const {data, refetch, loading: dataLoading} = useQuery(GET_ALL_KIDS, {
     variables: {
       userId: route.params.activeUser,
     },
@@ -59,7 +59,7 @@ export default function Recommended({ route, navigation }) {
     },
     {
       id: 4,
-      image: images.monkey,
+      image: images.AnimalQuiz,
       nav: "MonkeySeeMonkeyDo",
       stories: sing,
     },
@@ -101,12 +101,12 @@ export default function Recommended({ route, navigation }) {
       }}
     >
       <NavHome screen="Recommended" />
-      <Text style={[styles.title, { marginTop: 0 }]}>
+      <Text style={[styles.title, {marginTop: 0}]}>
         {"What do you want to \n share today?"}
       </Text>
       {!showMore ? (
         <FlatList
-          style={{ marginBottom: "-5%", marginTop: "-5%" }}
+          style={{marginBottom: "-5%", marginTop: "-5%"}}
           contentContainerStyle={{
             alignSelf: "center",
             flexGrow: 1,
@@ -116,7 +116,7 @@ export default function Recommended({ route, navigation }) {
           data={cardContent}
           numColumns={2}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => {
+          renderItem={({item}) => {
             return (
               <ActivityCard
                 image={item.image}
@@ -128,7 +128,7 @@ export default function Recommended({ route, navigation }) {
         />
       ) : (
         <FlatList
-          style={{ marginBottom: 10 }}
+          style={{marginBottom: 10}}
           contentContainerStyle={{
             alignSelf: "center",
             flexGrow: 1,
@@ -138,7 +138,7 @@ export default function Recommended({ route, navigation }) {
           data={cardContent2}
           numColumns={2}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => {
+          renderItem={({item}) => {
             return (
               <TouchableWithoutFeedback>
                 <ActivityCard
@@ -155,7 +155,7 @@ export default function Recommended({ route, navigation }) {
         <TouchableWithoutFeedback
           onPress={() => (!showMore ? setShowMore(true) : setShowMore(false))}
         >
-          <View style={[styles.loginButton, { marginBottom: "5%" }]}>
+          <View style={[styles.loginButton, {marginBottom: "5%"}]}>
             <Text style={styles.loginButtonText}>SEE MORE SUGGESTIONS</Text>
           </View>
         </TouchableWithoutFeedback>
