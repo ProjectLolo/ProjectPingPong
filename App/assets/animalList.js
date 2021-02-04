@@ -44,12 +44,13 @@ const animalList = {
 
 export const chooseAnimalAtRandom = (animalsToExclude = []) => {
   const allAnimals = Object.keys(animalList);
-  animalsToExclude.forEach(
-    (animalToExclude) => delete allAnimals[animalToExclude]
+  const filteredAnimals = allAnimals.filter(
+    (animal) => !animalsToExclude.includes(animal)
   );
-  const NoOfAnimals = allAnimals.length;
 
+  const NoOfAnimals = filteredAnimals.length;
   const indexAtRandom = Math.floor(Math.random() * NoOfAnimals);
+
   return allAnimals[indexAtRandom];
 };
 

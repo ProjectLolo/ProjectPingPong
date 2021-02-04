@@ -19,7 +19,7 @@ export default function AnimalSelector({navigation}) {
   );
 
   useEffect(() => {
-    setAnimalsToSelect(generateTwoRandomAnimals([animalsToSelect]));
+    setAnimalsToSelect(generateTwoRandomAnimals(animalsToSelect));
   }, [refreshSwitch]);
 
   const goToGetReadyScreen = (animal) => {
