@@ -21,7 +21,7 @@
     "dotenv": "^8.2.0",
     "expo": "^39.0.5",
     "expo-analytics-amplitude": "~8.3.1",
-    "expo-av": "~8.6.0",
+    "expo-av": "^8.6.0",
     "expo-camera": "~9.0.0",
     "expo-file-system": "~9.2.0",
     "expo-firebase-analytics": "^2.5.1",
