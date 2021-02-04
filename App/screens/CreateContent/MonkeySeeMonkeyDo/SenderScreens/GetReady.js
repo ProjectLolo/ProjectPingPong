@@ -17,6 +17,7 @@ const stylesNew = StyleSheet.create({
 
 
 export default function GetReady({ route, navigation }) {
+  const {animal} = route.params;
   const takeVideo = async () => {
     let result = [];
     result = await ImagePicker.launchCameraAsync({
@@ -38,8 +39,9 @@ export default function GetReady({ route, navigation }) {
 
   return (
    <SafeAreaView style={stylesNew.container}>
-      <Text>Are you ready to unleash your inner monkey?</Text>
+      <Text>{`Are you ready to unleash your inner ${animal}?`}</Text>
       <TouchableOpacity onPress={takeVideo}>
+
         <View style={styles.loginButton}>
           <Text style={styles.loginButtonText}>Let's go!</Text>
         </View>
