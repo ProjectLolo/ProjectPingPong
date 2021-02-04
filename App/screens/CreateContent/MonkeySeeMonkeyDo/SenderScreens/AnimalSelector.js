@@ -1,23 +1,30 @@
 import React, {useState, useEffect} from "react";
-import {
-  View,
-  Text,
-  TouchableWithoutFeedback,
-  Image,
-  FlatList,
-} from "react-native";
+import {View, Text, TouchableWithoutFeedback, Image} from "react-native";
 import styles from "@styles/styles";
 import {chooseAnimalAtRandom} from "../../../../assets/animalList";
-import ActivityCard from "../../../../components/StoryCard";
+import AnimalCard from "../../../../components/AnimalCard";
+
+const generateTwoRandomAnimals = (animalsToExclude) => {
+  const initialAnimals = [chooseAnimalAtRandom(animalsToExclude)];
+  initialAnimals.push(
+    chooseAnimalAtRandom([...animalsToExclude, initialAnimals[0]])
+  );
+  return initialAnimals;
+};
 
 export default function AnimalSelector({navigation}) {
   const [refreshSwitch, setRefreshSwitch] = useState(true);
-  const {animal: animal1, picture: animal1Picture} = chooseAnimalAtRandom();
-  const {animal: animal2, picture: animal2Picture} = chooseAnimalAtRandom();
+  const [animalsToSelect, setAnimalsToSelect] = useState(
+    generateTwoRandomAnimals([])
+  );
+
   useEffect(() => {
-    //refreshes the component to get new animals
+    setAnimalsToSelect(generateTwoRandomAnimals([animalsToSelect]));
   }, [refreshSwitch]);
 
+  const goToGetReadyScreen = (animal) => {
+    navigation.navigate("GetReady", {animal: animal});
+  };
   return (
     <View
       style={{
@@ -26,23 +33,15 @@ export default function AnimalSelector({navigation}) {
       }}
     >
       <Text style={[styles.title, {marginTop: 0}]}>{"Pick an animal \n"}</Text>
-      <TouchableWithoutFeedback
-        onPress={() => navigation.navigate("GetReady", {animal: animal1})}
-      >
-        <View style={styles.touchableCard}>
-          <Image style={styles.animalImage} source={animal1Picture} />
-          <Text> {animal1} </Text>
-        </View>
-      </TouchableWithoutFeedback>
+      <AnimalCard
+        animal={animalsToSelect[0]}
+        goToGetReadyScreen={goToGetReadyScreen}
+      />
+      <AnimalCard
+        animal={animalsToSelect[1]}
+        goToGetReadyScreen={goToGetReadyScreen}
+      />
 
-      <TouchableWithoutFeedback
-        onPress={() => navigation.navigate("GetReady", {animal: animal2})}
-      >
-        <View style={styles.touchableCard}>
-          <Image style={styles.animalImage} source={animal2Picture} />
-          <Text> {animal2} </Text>
-        </View>
-      </TouchableWithoutFeedback>
       <TouchableWithoutFeedback
         onPress={() => setRefreshSwitch(!refreshSwitch)}
       >
