@@ -1,4 +1,5 @@
-import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
+import {createStackNavigator} from "@react-navigation/stack";
 import GuessAnimal from "../screens/CreateContent/MonkeySeeMonkeyDo/ReceiverScreens/GuessAnimal";
 import GuessStart from "../screens/CreateContent/MonkeySeeMonkeyDo/ReceiverScreens/GuessStart";
 import Success from "../screens/CreateContent/MonkeySeeMonkeyDo/ReceiverScreens/Success";
