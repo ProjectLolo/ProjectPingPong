@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from "react-native";
 import fonts from "@assets/fonts";
 import adjust from "./adjust";
 import colors from "@assets/colors";
@@ -135,7 +135,7 @@ export default StyleSheet.create({
     justifyContent: "center",
     borderRadius: 20,
   },
-  linBottom: { paddingVertical: "5%", borderRadius: 20 },
+  linBottom: {paddingVertical: "5%", borderRadius: 20},
 
   //NavButtons
   navBtsContainer: {
@@ -150,12 +150,12 @@ export default StyleSheet.create({
     backgroundColor: "white",
     width: "25%",
     shadowColor: "black",
-    shadowOffset: { width: 0, height: 0 },
+    shadowOffset: {width: 0, height: 0},
     shadowOpacity: 0.1,
     shadowRadius: 50,
     alignSelf: "center",
   },
-  navBtContainer: { padding: 5 },
+  navBtContainer: {padding: 5},
   navBtImage: {
     width: 60,
     height: 60,
@@ -234,5 +234,22 @@ export default StyleSheet.create({
     color: colors.white,
     fontFamily: fonts.semiBold,
     textAlign: "center",
+  },
+  //Animal selector
+  touchableCard: {
+    fontSize: adjust(12),
+    width: "80%",
+    alignSelf: "center",
+    height: 150,
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "#AEADFF",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  animalImage: {
+    resizeMode: "contain",
+    height: "60%",
+    marginBottom: 5,
   },
 });
