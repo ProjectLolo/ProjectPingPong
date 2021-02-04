@@ -49,26 +49,3 @@ export default function AnimalSelector({navigation}) {
     </View>
   );
 }
-
-// export default function AnimalSelector({ navigation }) {
-//   return (
-//     <SafeAreaView style={stylesNew.container}>
-//       <Text>Pick an animal!</Text>
-//       <TouchableOpacity onPress={() => navigation.navigate("GetReady")}>
-//         <View style={stylesNew.animalContainer}>
-//           <Text>elphant</Text>
-//         </View>
-//       </TouchableOpacity>
-//       <TouchableOpacity onPress={() => navigation.navigate("GetReady")}>
-//         <View style={stylesNew.animalContainer}>
-//           <Text>monkey</Text>
-//         </View>
-//       </TouchableOpacity>
-//       <TouchableOpacity>
-//         <View style={styles.loginButton}>
-//           <Text style={styles.loginButtonText}>Get new animals</Text>
-//         </View>
-//       </TouchableOpacity>
-//     </SafeAreaView>
-//   );
-// }
