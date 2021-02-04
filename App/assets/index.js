@@ -38,6 +38,7 @@ const images = {
   RecMemory: require("./images/Rectangle5.png"),
   RecShare: require("./images/Rectangle6.png"),
   RecFun: require("./images/Rectangle7.png"),
+  AnimalQuiz: require("./images/08ANIMAL_QUIZ.png"),
 };
 
 export default images;
