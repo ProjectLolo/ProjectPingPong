@@ -2,83 +2,87 @@
 
 export const data = [
   {
-    url: "video file",
-    userId: "1",
-    pong: {
-      userId: "1",
-      recipientId: "2",
-      kidId: "1234",
-      url: "google.com",
+    _id: "1",
+    sender: "1",
+    url: "google",
+    pongId: {
+      _id: "601d3e131901c4aed1295b0b",
+      animal: "monkey",
+      kidId: "5fca5b922739ea00046a56ea",
+      url: "monkey picture",
+      receiver: {
+        _id: "2",
+      },
     },
   },
   {
-    url: "video file",
-    userId: "2",
-    pong: {
-      userId: "2",
-      recipientId: "1",
-      kidId: "1234",
-      url: "google.com",
+    _id: "2",
+    sender: "2",
+    url: "google",
+    pongId: {
+      _id: "601d3e131901c4aed1295b0b",
+      animal: "elephant",
+      kidId: "5fca5b922739ea00046a56ea",
+      url: "elephant picture",
+      receiver: {
+        _id: "1",
+      },
     },
   },
   {
-    url: "video file",
-    userId: "1",
-    pong: {
-      userId: "1",
-      recipientId: "2",
-      kidId: "1234",
-      url: "google.com",
+    _id: "3",
+    sender: "1",
+    url: "google",
+    pongId: {
+      _id: "601d3e131901c4aed1295b0b",
+      animal: "monkey",
+      kidId: "5fca5b922739ea00046a56ea",
+      url: "monkey picture",
+      receiver: {
+        _id: "2",
+      },
     },
   },
   {
-    url: "video file",
-    userId: "2",
-    pong: {
-      userId: "2",
-      recipientId: "1",
-      kidId: "1234",
-      url: "google.com",
+    _id: "4",
+    sender: "2",
+    url: "google",
+    pongId: {
+      _id: "601d3e131901c4aed1295b0b",
+      animal: "elephant",
+      kidId: "5fca5b922739ea00046a56ea",
+      url: "elephant picture",
+      receiver: {
+        _id: "1",
+      },
     },
   },
   {
-    url: "video file",
-    userId: "1",
-    pong: {
-      userId: "1",
-      recipientId: "2",
-      kidId: "1234",
-      url: "google.com",
+    _id: "5",
+    sender: "1",
+    url: "google",
+    pongId: {
+      _id: "601d3e131901c4aed1295b0b",
+      animal: "monkey",
+      kidId: "5fca5b922739ea00046a56ea",
+      url: "monkey picture",
+      receiver: {
+        _id: "2",
+      },
     },
   },
   {
-    url: "video file",
-    userId: "2",
-    pong: {
-      userId: "2",
-      recipientId: "1",
-      kidId: "1234",
-      url: "google.com",
-    },
-  },
-  {
-    url: "video file",
-    userId: "1",
-    pong: {
-      userId: "1",
-      recipientId: "2",
-      kidId: "1234",
-      url: "google.com",
-    },
-  },
-  {
-    url: "video file",
-    userId: "2",
-    pong: {
-      userId: "2",
-      recipientId: "1",
-      kidId: "1234",
-      url: "google.com",
+    _id: "6",
+    sender: "2",
+    url: "google",
+    pongId: {
+      _id: "601d3e131901c4aed1295b0b",
+      animal: "elephant",
+      kidId: "5fca5b922739ea00046a56ea",
+      url: "elephant picture",
+      receiver: {
+        _id: "1",
+      },
     },
   },
 ];

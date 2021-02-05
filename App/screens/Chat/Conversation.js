@@ -1,25 +1,36 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import { windowWidth } from "../../assets/utils/dimentions";
+import colors from "../../assets/colors/index";
+import { windowHeight, windowWidth } from "../../assets/utils/dimentions";
 import NavHome from "../../components/NavHome";
 import { data } from "./data";
 
-const Item = ({ url, userId, recipientId, kidId }) => {
-  const align = userId === "1" ? "flex-end" : "flex-start";
+const Item = ({ url, sender, animal, kidId, receiver }) => {
+  const align = sender === "1" ? "flex-end" : "flex-start";
   return (
     <View
       style={{
         alignSelf: align,
-        backgroundColor: "green",
         margin: 5,
+        padding: 5,
         width: "50%",
+        height: windowHeight / 7,
+        backgroundColor: colors.ltPink,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: colors.yellow,
       }}
     >
-      <Text>the video: {url}</Text>
-      <Text>you: {userId}</Text>
-      <Text>receiver: {recipientId}</Text>
-      <Text>the kiddo: {kidId}</Text>
+      <View
+        style={{
+          backgroundColor: colors.dkGrey,
+          height: "80%",
+        }}
+      >
+        <Text>the video: {animal}</Text>
+      </View>
+      <Text>{sender === "1" ? "you" : "tony"}</Text>
     </View>
   );
 };
@@ -29,9 +40,9 @@ export default function Conversation() {
     return (
       <Item
         url={item.url}
-        userId={item.userId}
-        recipientId={item.pong.recipientId}
-        kidId={item.pong.kidId}
+        sender={item.sender}
+        kidId={item.pongId.kidId}
+        animal={item.pongId.animal}
       />
     );
   };
@@ -46,16 +57,14 @@ export default function Conversation() {
     >
       <NavHome />
       <View style={{ flex: 1 }}>
-        <Text>This is conversationScreen</Text>
         <View
           style={{
-            backgroundColor: "pink",
             width: windowWidth,
           }}
         >
           <FlatList
             data={data}
-            keyExtractor={(item) => item.pongId}
+            keyExtractor={(item) => item._id}
             renderItem={renderItem}
           />
         </View>
