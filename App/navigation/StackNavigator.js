@@ -5,6 +5,7 @@ import React from "react";
 import TakeProfilePicture from "../components/TakeProfilePicture";
 import VideoPreview from "../components/VideoPreview";
 import Chats from "../screens/Chat";
+import Conversation from "../screens/Chat/Conversation";
 import Activate from "../screens/CreateContent/Activate";
 import Fun from "../screens/CreateContent/Fun";
 import Memory from "../screens/CreateContent/Memory";
@@ -97,6 +98,11 @@ export default function authNavigator({ route, state }) {
           initialParams={state}
         />
         <Stack.Screen name="Chats" component={Chats} initialParams={state} />
+        <Stack.Screen
+          name="Conversation"
+          component={Conversation}
+          initialParams={state}
+        />
         <Stack.Screen
           name="Settings"
           component={Settings}
