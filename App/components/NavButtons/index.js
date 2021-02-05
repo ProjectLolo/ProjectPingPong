@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { View, TouchableWithoutFeedback, Text, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import images from "@assets/images";
+import { useNavigation } from "@react-navigation/native";
 import styles from "@styles/styles";
+import React, { useEffect, useState } from "react";
+import { Image, Text, TouchableWithoutFeedback, View } from "react-native";
 import colors from "../../assets/colors";
 
 export default function NavButtons(props) {
@@ -77,6 +77,31 @@ export default function NavButtons(props) {
       );
     }
   }
+  function conversations() {
+    if (screen === "Chats") {
+      return (
+        <TouchableWithoutFeedback>
+          <View style={styles.navActiveBtContainer}>
+            <Image style={styles.navBtImage} source={images.photography} />
+            <Text style={styles.bottomText}>Chats</Text>
+          </View>
+        </TouchableWithoutFeedback>
+      );
+    } else if (screen === "Single") {
+      return null;
+    } else {
+      return (
+        <TouchableWithoutFeedback
+          onPress={() => navigation.navigate("Chats", { kidData })}
+        >
+          <View style={styles.navBtContainer}>
+            <Image style={styles.navBtImage} source={images.photography} />
+            <Text style={styles.bottomText}>Chats</Text>
+          </View>
+        </TouchableWithoutFeedback>
+      );
+    }
+  }
 
   function account() {
     if (screen === "Settings" || screen === "SettingsParent") {
@@ -123,6 +148,7 @@ export default function NavButtons(props) {
     <View style={styles.navBtsContainer}>
       {create()}
       {loveBank()}
+      {conversations()}
       {account()}
     </View>
   );
