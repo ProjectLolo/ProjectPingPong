@@ -1,30 +1,25 @@
 import styles from "@styles/styles";
-import React, { useEffect, useState } from "react";
-import { Text, TouchableWithoutFeedback, View } from "react-native";
-import { chooseAnimalAtRandom } from "../../../../assets/animalList";
+import React, {useEffect, useState} from "react";
+import {Text, TouchableWithoutFeedback, View} from "react-native";
 import AnimalCard from "../../../../components/AnimalCard";
 import NavHome from "../../../../components/NavHome";
+import {generateAnimalsAtRandom} from "./helpers";
 
-const generateTwoRandomAnimals = (animalsToExclude) => {
-  const initialAnimals = [chooseAnimalAtRandom(animalsToExclude)];
-  initialAnimals.push(
-    chooseAnimalAtRandom([...animalsToExclude, initialAnimals[0]])
-  );
-  return initialAnimals;
-};
-
-export default function AnimalSelector({ navigation }) {
+export default function AnimalSelector({navigation}) {
+  const numberOfAnimals = 2;
   const [refreshSwitch, setRefreshSwitch] = useState(true);
   const [animalsToSelect, setAnimalsToSelect] = useState(
-    generateTwoRandomAnimals([])
+    generateAnimalsAtRandom(numberOfAnimals)
   );
 
   useEffect(() => {
-    setAnimalsToSelect(generateTwoRandomAnimals(animalsToSelect));
+    setAnimalsToSelect(
+      generateAnimalsAtRandom(numberOfAnimals, animalsToSelect)
+    );
   }, [refreshSwitch]);
 
   const goToGetReadyScreen = (animal) => {
-    navigation.navigate("GetReady", { animal: animal });
+    navigation.navigate("GetReady", {animal: animal});
   };
   return (
     <View
@@ -32,7 +27,7 @@ export default function AnimalSelector({ navigation }) {
         flex: 1,
       }}
     >
-    <NavHome />
+      <NavHome />
 
       <Text style={[styles.title, {marginTop: 0}]}>{"Pick an animal \n"}</Text>
 
@@ -47,11 +42,10 @@ export default function AnimalSelector({ navigation }) {
         </TouchableWithoutFeedback>
       ))}
 
-
       <TouchableWithoutFeedback
         onPress={() => setRefreshSwitch(!refreshSwitch)}
       >
-        <View style={[styles.loginButton, { marginBottom: "5%" }]}>
+        <View style={[styles.loginButton, {marginBottom: "5%"}]}>
           <Text style={styles.loginButtonText}>I want other animals</Text>
         </View>
       </TouchableWithoutFeedback>
