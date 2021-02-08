@@ -21,7 +21,7 @@ export default function AnimalSelector({navigation}) {
   const goToGetReadyScreen = (animal) => {
     navigation.navigate("GetReady", {animal: animal});
   };
-  console.log("animalsToSelect", animalsToSelect);
+
   return (
     <View
       style={{
