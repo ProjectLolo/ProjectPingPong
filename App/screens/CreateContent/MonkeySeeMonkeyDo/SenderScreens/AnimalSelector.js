@@ -32,18 +32,21 @@ export default function AnimalSelector({ navigation }) {
         flex: 1,
       }}
     >
-      <NavHome />
-      <Text style={[styles.title, { marginTop: 0 }]}>
-        {"Pick an animal \n"}
-      </Text>
-      <AnimalCard
-        animal={animalsToSelect[0]}
-        goToGetReadyScreen={goToGetReadyScreen}
-      />
-      <AnimalCard
-        animal={animalsToSelect[1]}
-        goToGetReadyScreen={goToGetReadyScreen}
-      />
+    <NavHome />
+
+      <Text style={[styles.title, {marginTop: 0}]}>{"Pick an animal \n"}</Text>
+
+      {animalsToSelect.map((animal) => (
+        <TouchableWithoutFeedback
+          key={Math.random() * 1000000}
+          onPress={() => goToGetReadyScreen(animal)}
+        >
+          <View>
+            <AnimalCard animal={animal} />
+          </View>
+        </TouchableWithoutFeedback>
+      ))}
+
 
       <TouchableWithoutFeedback
         onPress={() => setRefreshSwitch(!refreshSwitch)}
