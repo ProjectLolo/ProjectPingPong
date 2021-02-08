@@ -37,13 +37,11 @@ export const shuffle = (array) => {
 };
 
 export const checkCorrectAnswer = (animal, correct) => {
-  // return Alert.alert(`${animal} got pressed, ${correct} is correct`);
-
   //take animal from monkeypong
   if (animal !== correct) {
-    return Alert.alert("helaas niet goed");
+    return Alert.alert("oopsie, try again");
   } else {
-    return Alert.alert("jeej dat is goed");
+    return Alert.alert("GOOD JOB!!!!", "That is correct!");
   }
 
   //check pressed animal
