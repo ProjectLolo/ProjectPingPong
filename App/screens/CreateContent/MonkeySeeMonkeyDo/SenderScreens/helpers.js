@@ -7,6 +7,7 @@ export const generateAnimalsAtRandom = (
 
   for (let i = 0; i < numberOfAnimalsToReturn - 1; i++) {
     animalsToExclude.push(animalsToReturn[i]);
+
     animalsToReturn.push(chooseAnimalAtRandom(animalsToExclude));
   }
 

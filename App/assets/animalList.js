@@ -51,7 +51,7 @@ export const chooseAnimalAtRandom = (animalsToExclude = []) => {
   const NoOfAnimals = filteredAnimals.length;
   const indexAtRandom = Math.floor(Math.random() * NoOfAnimals);
 
-  return allAnimals[indexAtRandom];
+  return filteredAnimals[indexAtRandom];
 };
 
 export const getAnimalPicture = (animal) => {
