@@ -3,7 +3,7 @@ import React from "react";
 import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { getAnimalPicture } from "../../../../assets/animalList";
-import { generateAnimalsAtRandom } from "../SenderScreens/helpers";
+import { generateAnimalsAtRandom, shuffle } from "../SenderScreens/helpers";
 
 const stylesNew = StyleSheet.create({
   container: {
@@ -26,7 +26,7 @@ const Item = ({ animal }) => {
       style={{
         width: 150,
         height: 150,
-        backgroundColor: colors.ltPink,
+        backgroundColor: colors.ltPurple,
         justifyContent: "space-evenly",
         alignItems: "center",
         margin: 10,
@@ -47,13 +47,11 @@ export default function GuessAnimal({ route, navigation }) {
   const { animal } = route.params;
   const wrongAnswers = generateAnimalsAtRandom(3, [animal]);
 
-  console.log("route", route);
   console.log("animal is", animal);
-  console.log("wronganswers", wrongAnswers);
 
   const possibleAnswers = wrongAnswers.concat(animal);
-  console.log("possible answers", possibleAnswers);
-  console.log("animal again", animal);
+
+  const possibleAnswersShuffled = shuffle(possibleAnswers);
 
   const renderItem = ({ item }) => {
     return (
@@ -73,7 +71,7 @@ export default function GuessAnimal({ route, navigation }) {
       </TouchableOpacity>
       <View style={{ flex: 1 }}>
         <FlatList
-          data={possibleAnswers}
+          data={possibleAnswersShuffled}
           keyExtractor={(_, i) => i}
           renderItem={renderItem}
           numColumns={2}
