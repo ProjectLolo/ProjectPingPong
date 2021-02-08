@@ -21,10 +21,13 @@ const stylesNew = StyleSheet.create({
 
 export default function GuessAnimal({ route, navigation }) {
   const { animal } = route.params;
-  const rightAnswer = [animal];
-  const wrongAnswers = generateAnimalsAtRandom(3, rightAnswer);
+  const wrongAnswers = generateAnimalsAtRandom(3, [animal]);
 
-  console.log(wrongAnswers);
+  console.log("animal is", animal);
+  console.log("wronganswers", wrongAnswers);
+
+  const possibleAnswers = wrongAnswers.concat(animal);
+  console.log("possible answers", possibleAnswers);
 
   return (
     <SafeAreaView style={stylesNew.container}>
