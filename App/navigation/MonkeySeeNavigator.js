@@ -1,10 +1,5 @@
-
+import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import {createStackNavigator} from "@react-navigation/stack";
-
-import GuessAnimal from "../screens/CreateContent/MonkeySeeMonkeyDo/ReceiverScreens/GuessAnimal";
-import GuessStart from "../screens/CreateContent/MonkeySeeMonkeyDo/ReceiverScreens/GuessStart";
-import Success from "../screens/CreateContent/MonkeySeeMonkeyDo/ReceiverScreens/Success";
 import AnimalSelector from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/AnimalSelector";
 import GameStart from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/GameStart";
 import GetReady from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/GetReady";
@@ -59,7 +54,7 @@ export const MonkeySeeMonkeyDoStack = ({}) => {
         }}
         component={ImitationSent}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="GuessStart"
         options={{
           header: () => null,
@@ -79,7 +74,7 @@ export const MonkeySeeMonkeyDoStack = ({}) => {
           header: () => null,
         }}
         component={Success}
-      />
+      /> */}
     </Stack.Navigator>
   );
 };

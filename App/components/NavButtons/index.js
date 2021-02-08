@@ -4,6 +4,7 @@ import styles from "@styles/styles";
 import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableWithoutFeedback, View } from "react-native";
 import colors from "../../assets/colors";
+import chat_2 from "../../assets/images/chat_2.png";
 
 export default function NavButtons(props) {
   // const isFocused = useIsFocused();
@@ -82,7 +83,7 @@ export default function NavButtons(props) {
       return (
         <TouchableWithoutFeedback>
           <View style={styles.navActiveBtContainer}>
-            <Image style={styles.navBtImage} source={images.photography} />
+            <Image style={styles.navBtImage} source={chat_2} />
             <Text style={styles.bottomText}>Chats</Text>
           </View>
         </TouchableWithoutFeedback>
@@ -95,7 +96,7 @@ export default function NavButtons(props) {
           onPress={() => navigation.navigate("Chats", { kidData })}
         >
           <View style={styles.navBtContainer}>
-            <Image style={styles.navBtImage} source={images.photography} />
+            <Image style={styles.navBtImage} source={chat_2} />
             <Text style={styles.bottomText}>Chats</Text>
           </View>
         </TouchableWithoutFeedback>

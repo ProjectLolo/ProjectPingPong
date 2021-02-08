@@ -1,6 +1,7 @@
 import styles from "@styles/styles";
 import React from "react";
-import { SafeAreaView, StyleSheet, Text } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const stylesNew = StyleSheet.create({
   container: {

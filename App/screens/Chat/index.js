@@ -1,6 +1,5 @@
-import { useIsFocused } from "@react-navigation/native";
 import styles from "@styles/styles";
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import colors from "../../assets/colors/index";
@@ -19,9 +18,6 @@ const stylesNew = StyleSheet.create({
 });
 
 export default function Chats({ route, navigation }) {
-  //hardcoded kidId, not sure atm where to get it from
-  const isFocused = useIsFocused();
-  const [loveBanks, setLoveBanks] = useState([]);
   const { kidData } = route.params;
 
   return (
@@ -35,7 +31,7 @@ export default function Chats({ route, navigation }) {
           onPress={() => navigation.navigate("Conversation")}
         >
           <View style={stylesNew.chatContainer}>
-            <Text>Conversation name</Text>
+            <Text style={styles.cardText}>MonkeyPong with Tony</Text>
           </View>
         </TouchableWithoutFeedback>
       </View>

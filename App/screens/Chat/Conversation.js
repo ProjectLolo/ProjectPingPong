@@ -1,6 +1,10 @@
+import styles from "@styles/styles";
 import React from "react";
 import { Text, View } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import {
+  FlatList,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import colors from "../../assets/colors/index";
 import { windowHeight, windowWidth } from "../../assets/utils/dimentions";
 import NavHome from "../../components/NavHome";
@@ -24,26 +28,36 @@ const Item = ({ url, sender, animal, kidId, receiver }) => {
     >
       <View
         style={{
-          backgroundColor: colors.dkGrey,
+          backgroundColor: "lightgrey",
           height: "80%",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <Text>the video: {animal}</Text>
+        <Text style={styles.regular}>the video: {animal}</Text>
       </View>
-      <Text>{sender === "1" ? "you" : "tony"}</Text>
+      <Text style={[styles.regular, { marginTop: 3 }]}>
+        {sender === "1" ? "you" : "tony"}
+      </Text>
     </View>
   );
 };
 
-export default function Conversation() {
+export default function Conversation({ route, navigation }) {
   const renderItem = ({ item }) => {
     return (
-      <Item
-        url={item.url}
-        sender={item.sender}
-        kidId={item.pongId.kidId}
-        animal={item.pongId.animal}
-      />
+      <TouchableWithoutFeedback
+        onPress={() =>
+          navigation.navigate("GuessAnimal", { animal: item.pongId.animal })
+        }
+      >
+        <Item
+          url={item.url}
+          sender={item.sender}
+          kidId={item.pongId.kidId}
+          animal={item.pongId.animal}
+        />
+      </TouchableWithoutFeedback>
     );
   };
 
@@ -66,6 +80,9 @@ export default function Conversation() {
             data={data}
             keyExtractor={(item) => item._id}
             renderItem={renderItem}
+            style={{
+              marginBottom: 50,
+            }}
           />
         </View>
       </View>
