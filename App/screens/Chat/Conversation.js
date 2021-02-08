@@ -1,3 +1,4 @@
+import styles from "@styles/styles";
 import React from "react";
 import { Text, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
@@ -24,13 +25,17 @@ const Item = ({ url, sender, animal, kidId, receiver }) => {
     >
       <View
         style={{
-          backgroundColor: colors.dkGrey,
+          backgroundColor: "lightgrey",
           height: "80%",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <Text>the video: {animal}</Text>
+        <Text style={styles.regular}>the video: {animal}</Text>
       </View>
-      <Text>{sender === "1" ? "you" : "tony"}</Text>
+      <Text style={[styles.regular, { marginTop: 3 }]}>
+        {sender === "1" ? "you" : "tony"}
+      </Text>
     </View>
   );
 };
@@ -66,6 +71,9 @@ export default function Conversation() {
             data={data}
             keyExtractor={(item) => item._id}
             renderItem={renderItem}
+            style={{
+              marginBottom: 50,
+            }}
           />
         </View>
       </View>

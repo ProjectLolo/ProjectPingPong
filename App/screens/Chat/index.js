@@ -35,7 +35,7 @@ export default function Chats({ route, navigation }) {
           onPress={() => navigation.navigate("Conversation")}
         >
           <View style={stylesNew.chatContainer}>
-            <Text>Conversation name</Text>
+            <Text style={styles.cardText}>MonkeyPong with Tony</Text>
           </View>
         </TouchableWithoutFeedback>
       </View>
