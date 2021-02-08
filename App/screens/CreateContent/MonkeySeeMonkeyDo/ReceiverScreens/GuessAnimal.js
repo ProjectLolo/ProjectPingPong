@@ -1,9 +1,17 @@
 import colors from "@assets/colors";
 import React from "react";
 import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import {
+  FlatList,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import { getAnimalPicture } from "../../../../assets/animalList";
-import { generateAnimalsAtRandom, shuffle } from "../SenderScreens/helpers";
+import {
+  checkCorrectAnswer,
+  generateAnimalsAtRandom,
+  shuffle,
+} from "../SenderScreens/helpers";
 
 const stylesNew = StyleSheet.create({
   container: {
@@ -20,26 +28,30 @@ const stylesNew = StyleSheet.create({
   },
 });
 
-const Item = ({ animal }) => {
+const Item = ({ animal, correct }) => {
   return (
-    <View
-      style={{
-        width: 150,
-        height: 150,
-        backgroundColor: colors.ltPurple,
-        justifyContent: "space-evenly",
-        alignItems: "center",
-        margin: 10,
-        padding: 10,
-        borderRadius: 12,
-      }}
+    <TouchableWithoutFeedback
+      onPress={() => checkCorrectAnswer(animal, correct)}
     >
-      <Image
-        style={{ resizeMode: "contain", height: "90%" }}
-        source={getAnimalPicture(animal)}
-      />
-      <Text>{animal}</Text>
-    </View>
+      <View
+        style={{
+          width: 150,
+          height: 150,
+          backgroundColor: colors.ltPurple,
+          justifyContent: "space-evenly",
+          alignItems: "center",
+          margin: 10,
+          padding: 10,
+          borderRadius: 12,
+        }}
+      >
+        <Image
+          style={{ resizeMode: "contain", height: "90%" }}
+          source={getAnimalPicture(animal)}
+        />
+        <Text>{animal}</Text>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -56,7 +68,7 @@ export default function GuessAnimal({ route, navigation }) {
   const renderItem = ({ item }) => {
     return (
       <View>
-        <Item animal={item} />
+        <Item animal={item} correct={animal} />
       </View>
     );
   };
