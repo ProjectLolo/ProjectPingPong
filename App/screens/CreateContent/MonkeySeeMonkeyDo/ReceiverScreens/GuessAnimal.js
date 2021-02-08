@@ -2,6 +2,7 @@ import colors from "@assets/colors";
 import React from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { generateAnimalsAtRandom } from "../SenderScreens/helpers";
 
 const stylesNew = StyleSheet.create({
   container: {
@@ -18,8 +19,13 @@ const stylesNew = StyleSheet.create({
   },
 });
 
-export default function GuessAnimal({ navigation }) {
+export default function GuessAnimal({ route, navigation }) {
   const { animal } = route.params;
+  const rightAnswer = [animal];
+  const wrongAnswers = generateAnimalsAtRandom(3, rightAnswer);
+
+  console.log(wrongAnswers);
+
   return (
     <SafeAreaView style={stylesNew.container}>
       <Text>guessssssss?</Text>
