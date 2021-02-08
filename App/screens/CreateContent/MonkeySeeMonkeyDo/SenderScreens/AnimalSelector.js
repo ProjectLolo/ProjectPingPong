@@ -40,10 +40,7 @@ export default function AnimalSelector({navigation}) {
           onPress={() => goToGetReadyScreen(animal)}
         >
           <View>
-            <AnimalCard
-              animal={animal}
-              //goToGetReadyScreen={goToGetReadyScreen}
-            />
+            <AnimalCard animal={animal} />
           </View>
         </TouchableWithoutFeedback>
       ))}
