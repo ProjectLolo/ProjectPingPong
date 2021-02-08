@@ -1,7 +1,10 @@
 import styles from "@styles/styles";
 import React from "react";
 import { Text, View } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import {
+  FlatList,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import colors from "../../assets/colors/index";
 import { windowHeight, windowWidth } from "../../assets/utils/dimentions";
 import NavHome from "../../components/NavHome";
@@ -40,15 +43,21 @@ const Item = ({ url, sender, animal, kidId, receiver }) => {
   );
 };
 
-export default function Conversation() {
+export default function Conversation({ route, navigation }) {
   const renderItem = ({ item }) => {
     return (
-      <Item
-        url={item.url}
-        sender={item.sender}
-        kidId={item.pongId.kidId}
-        animal={item.pongId.animal}
-      />
+      <TouchableWithoutFeedback
+        onPress={() =>
+          navigation.navigate("GuessAnimal", { animal: item.pongId.animal })
+        }
+      >
+        <Item
+          url={item.url}
+          sender={item.sender}
+          kidId={item.pongId.kidId}
+          animal={item.pongId.animal}
+        />
+      </TouchableWithoutFeedback>
     );
   };
 

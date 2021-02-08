@@ -10,6 +10,9 @@ import Activate from "../screens/CreateContent/Activate";
 import Fun from "../screens/CreateContent/Fun";
 import Memory from "../screens/CreateContent/Memory";
 import MessageSent from "../screens/CreateContent/MessageSent";
+import GuessAnimal from "../screens/CreateContent/MonkeySeeMonkeyDo/ReceiverScreens/GuessAnimal";
+import GuessStart from "../screens/CreateContent/MonkeySeeMonkeyDo/ReceiverScreens/GuessStart";
+import Success from "../screens/CreateContent/MonkeySeeMonkeyDo/ReceiverScreens/Success";
 import ReadAStory from "../screens/CreateContent/ReadAStory";
 import Story from "../screens/CreateContent/ReadAStory/Story";
 import Share from "../screens/CreateContent/Share";
@@ -151,6 +154,27 @@ export default function authNavigator({ route, state }) {
           initialParams={state}
         />
         <Stack.Screen name="MessageSent" component={MessageSent} />
+        <Stack.Screen
+          name="GuessStart"
+          options={{
+            header: () => null,
+          }}
+          component={GuessStart}
+        />
+        <Stack.Screen
+          name="GuessAnimal"
+          options={{
+            header: () => null,
+          }}
+          component={GuessAnimal}
+        />
+        <Stack.Screen
+          name="Success"
+          options={{
+            header: () => null,
+          }}
+          component={Success}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,6 +1,7 @@
 import colors from "@assets/colors";
 import React from "react";
-import { SafeAreaView, StyleSheet, Text } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const stylesNew = StyleSheet.create({
   container: {
@@ -10,22 +11,28 @@ const stylesNew = StyleSheet.create({
   },
   animalContainer: {
     backgroundColor: colors.purple,
-    height: "90%",
-    width: 30,
+    height: 100,
+    width: 100,
     borderRadius: 10,
     marginBottom: 5,
   },
 });
 
 export default function GuessAnimal({ navigation }) {
+  const { animal } = route.params;
   return (
     <SafeAreaView style={stylesNew.container}>
       <Text>guessssssss?</Text>
       <TouchableOpacity onPress={() => navigation.navigate("Success")}>
         <View style={stylesNew.animalContainer}>
-          <Text>monkey</Text>
+          <Text>{animal}</Text>
         </View>
       </TouchableOpacity>
     </SafeAreaView>
   );
 }
+
+//random set of 3 animals
+//push right animal onto the array of 3 random animals
+//put right animal in temp state
+//match right and wrong with if or switch statement
