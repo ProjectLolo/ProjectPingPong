@@ -1,14 +1,8 @@
 import colors from "@assets/colors";
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
-import {
-  Alert,
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import React, { useState } from "react";
+import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import * as Animatable from "react-native-animatable";
 import {
   FlatList,
   TouchableOpacity,
@@ -32,13 +26,15 @@ const stylesNew = StyleSheet.create({
   },
 });
 
-const Item = ({ animal, correct }) => {
+const Item = ({ animal, correct, id }) => {
   const navigation = useNavigation();
+  const [animate, setAnimate] = useState(false);
 
+  //take animal from monkeypong
   const checkCorrectAnswer = (animal, correct) => {
-    //take animal from monkeypong
     if (animal !== correct) {
-      return Alert.alert("oopsie, try again");
+      // return Alert.alert("oopsie, try again");
+      setAnimate(true);
     } else {
       navigation.navigate("Success");
     }
@@ -52,7 +48,8 @@ const Item = ({ animal, correct }) => {
     <TouchableWithoutFeedback
       onPress={() => checkCorrectAnswer(animal, correct)}
     >
-      <View
+      <Animatable.View
+        animation={animate ? "shake" : null}
         style={{
           width: 150,
           height: 150,
@@ -69,7 +66,7 @@ const Item = ({ animal, correct }) => {
           source={getAnimalPicture(animal)}
         />
         <Text>{animal}</Text>
-      </View>
+      </Animatable.View>
     </TouchableWithoutFeedback>
   );
 };
@@ -84,10 +81,10 @@ export default function GuessAnimal({ route, navigation }) {
 
   const possibleAnswersShuffled = shuffle(possibleAnswers);
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item, index }) => {
     return (
-      <View>
-        <Item animal={item} correct={animal} />
+      <View key={index}>
+        <Item animal={item} correct={animal} id={index} />
       </View>
     );
   };
