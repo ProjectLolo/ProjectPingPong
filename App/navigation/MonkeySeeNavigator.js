@@ -10,7 +10,7 @@ import VideoUpload from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreen
 
 const Stack = createStackNavigator();
 
-export const MonkeySeeMonkeyDoStack = ({}) => {
+export const MonkeySeeMonkeyDoStack = ({route, state}) => {
   return (
     <Stack.Navigator initialRouteName="GameStart">
       <Stack.Screen
@@ -61,6 +61,7 @@ export const MonkeySeeMonkeyDoStack = ({}) => {
           header: () => null,
         }}
         component={VideoUpload}
+        initialParams={state}
       />
       {/* <Stack.Screen
         name="GuessStart"

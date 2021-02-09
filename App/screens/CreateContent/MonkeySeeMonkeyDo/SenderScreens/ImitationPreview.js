@@ -15,8 +15,11 @@ const stylesNew = StyleSheet.create({
 });
 
 export default function ImitationPreview({route, navigation}) {
-  const handleSend = async (videoUri, videoName) => {
-    navigation.navigate("VideoUpload", {videoUri: videoUri});
+  const handleSend = async (videoUri) => {
+    navigation.navigate("VideoUpload", {
+      videoUri: videoUri,
+      animal: route.params.animal,
+    });
   };
   return (
     <SafeAreaView style={stylesNew.container}>
@@ -32,11 +35,7 @@ export default function ImitationPreview({route, navigation}) {
         useNativeControls
         style={{width: 300, height: 400}}
       />
-      <TouchableOpacity
-        onPress={() =>
-          handleSend(route.params.uri, `${Math.round(Math.random() * 1000000)}`)
-        }
-      >
+      <TouchableOpacity onPress={() => handleSend(route.params.uri)}>
         <View style={styles.loginButton}>
           <Text style={styles.loginButtonText}>Send</Text>
         </View>

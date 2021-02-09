@@ -9,13 +9,14 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from "react-native";
-
+import Images from "../../../../assets";
 import colors from "@assets/colors";
 import {Video} from "expo-av";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {useMutation} from "@apollo/client";
+import {CREATE_NEW_MONKEYPONG} from "../../../../../graphql/mutations";
 
-//import {AuthContext} from "../../../context/Auth";
+import {AuthContext} from "../../../../context/Auth";
 const style = StyleSheet.create({
   iconContainer: {
     justifyContent: "center",
@@ -48,39 +49,36 @@ const style = StyleSheet.create({
   },
 });
 
-export default function VideoUpload({route}) {
-  const {videoUri} = route.params;
+export default function VideoUpload({route, navigation}) {
+  const {videoUri, animal} = route.params;
   const [loading, setLoading] = useState(false);
   const [loadingTime, setLoadingTime] = useState("");
   const [videoFirebaseUrl, setVideoFirebaseUrl] = useState(null);
-  //const {activeKid} = useContext(AuthContext);
+  const {activeKid} = useContext(AuthContext);
 
-  // activeKid(route.params.activeKid);
-  // console.log("AK", route.params.activeKid);
-  // // Mutation
-  // const [loveBankEntry, { error }] = useMutation(CREATE_LOVEBANK, {
-  //   onError: (error) => console.log("mutation create lovebank content", error),
-  //   onCompleted(data) {
-  //     console.log("completed", data);
-  //     navigation.navigate("LoveBank");
-  //   },
-  // });
+  activeKid(route.params.activeKid);
+  console.log("AK", route.params.activeKid);
+  // Mutation
+  const [createNewMonkeyPong, {error}] = useMutation(CREATE_NEW_MONKEYPONG, {
+    onError: (error) =>
+      console.log("mutation create new monkey pong content", error),
+    onCompleted(data) {
+      console.log("completed", data);
+      navigation.navigate("ImitationSent");
+    },
+  });
 
-  //   console.log("video", video);
+  //console.log("activeKid", route.params.kidId);
 
-  //   function handleSend() {
-  //     loveBankEntry({
-  //       variables: {
-  //         title: "a video",
-  //         url: video,
-  //         preview: route.params.uri,
-  //         description: "this is a video",
-  //         type: route.params.type,
-  //         category: "share",
-  //         kidId: route.params.activeKid,
-  //       },
-  //     });
-  //   }
+  function handleSend() {
+    createNewMonkeyPong({
+      variables: {
+        animal: animal,
+        url: video,
+        kidId: route.params.activeKid,
+      },
+    });
+  }
 
   // Upload Video
   useEffect(() => {
@@ -156,72 +154,67 @@ export default function VideoUpload({route}) {
       </View>
     );
   }
+
   return (
-    <View>
-      <Text>Video uploaded</Text>
+    <View style={styles.container}>
+      <View style={styles.mainContainer}>
+        <Text style={[style.h2, style.center]}>
+          Your {route.params.type === "video" ? "recording" : "picture"} is
+          ready!
+        </Text>
+        <Text style={style.center}>
+          {route.params.type === "video"
+            ? "Replay your recording here!"
+            : "Checkout the picture you made!"}
+        </Text>
+        {route.params.type === "video" ? (
+          <Video
+            source={{uri: route.params.uri}}
+            rate={1.0}
+            volume={1.0}
+            isMuted={false}
+            resizeMode="cover"
+            useNativeControls
+            style={{width: 300, height: 400}}
+          />
+        ) : (
+          <Image
+            style={{width: 400, height: 300}}
+            source={{
+              uri: route.params.uri,
+            }}
+          />
+        )}
+      </View>
+
+      <View>
+        {/* Icons for record and upload  */}
+        <View style={styles.rowContainer}>
+          {/* <TouchableOpacity onPress={() => navigation.goBack(null)}>
+            <View style={styles.iconContainer}>
+              <MaterialCommunityIcons name="delete" color="#FF6E5A" size={60} />
+              <Text>Start over</Text>
+            </View>
+          </TouchableOpacity> */}
+          <TouchableOpacity onPress={handleSend}>
+            <View style={styles.iconContainer}>
+              <Image style={styles.icon} source={Images.paperPlane} />
+              <Text>Save and send</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        {/* navigation */}
+        {/* <TouchableWithoutFeedback
+          onPress={() => navigation.navigate("Recommended")}
+        >
+          <Text style={{textAlign: "center", marginTop: 50}}>
+            Press here to go to Recommended
+          </Text>
+        </TouchableWithoutFeedback> */}
+      </View>
     </View>
   );
 }
-//   return (
-//     <View style={styles.container}>
-//       <View style={styles.mainContainer}>
-//         <Text style={[style.h2, style.center]}>
-//           Your {route.params.type === "video" ? "recording" : "picture"} is
-//           ready!
-//         </Text>
-//         <Text style={style.center}>
-//           {route.params.type === "video"
-//             ? "Replay your recording here!"
-//             : "Checkout the picture you made!"}
-//         </Text>
-//         {route.params.type === "video" ? (
-//           <Video
-//             source={{uri: route.params.uri}}
-//             rate={1.0}
-//             volume={1.0}
-//             isMuted={false}
-//             resizeMode="cover"
-//             useNativeControls
-//             style={{width: 300, height: 400}}
-//           />
-//         ) : (
-//           <Image
-//             style={{width: 400, height: 300}}
-//             source={{
-//               uri: route.params.uri,
-//             }}
-//           />
-//         )}
-//       </View>
-
-//       <View>
-//         {/* Icons for record and upload  */}
-//         <View style={styles.rowContainer}>
-//           <TouchableOpacity onPress={() => navigation.goBack(null)}>
-//             <View style={styles.iconContainer}>
-//               <MaterialCommunityIcons name="delete" color="#FF6E5A" size={60} />
-//               <Text>Start over</Text>
-//             </View>
-//           </TouchableOpacity>
-//           <TouchableOpacity onPress={handleSend}>
-//             <View style={styles.iconContainer}>
-//               <Image style={styles.icon} source={Images.paperPlane} />
-//               <Text>Save and send</Text>
-//             </View>
-//           </TouchableOpacity>
-//         </View>
-//         {/* navigation */}
-//         <TouchableWithoutFeedback
-//           onPress={() => navigation.navigate("Recommended")}
-//         >
-//           <Text style={{textAlign: "center", marginTop: 50}}>
-//             Press here to go to Recommended
-//           </Text>
-//         </TouchableWithoutFeedback>
-//       </View>
-//     </View>
-//   );
-// }
 const styles = StyleSheet.create({
   iconContainer: {
     justifyContent: "center",

@@ -32,6 +32,7 @@ export default function GetReady({route, navigation}) {
     if (!result.cancelled) {
       navigation.navigate("ImitationPreview", {
         uri: `${result.uri}.mp4`,
+        animal: animal,
         type: "video",
       });
     }
