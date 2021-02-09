@@ -1,4 +1,3 @@
-import { Alert } from "react-native";
 import { chooseAnimalAtRandom } from "../../../../assets/animalList";
 
 export const generateAnimalsAtRandom = (
@@ -34,17 +33,4 @@ export const shuffle = (array) => {
   }
 
   return array;
-};
-
-export const checkCorrectAnswer = (animal, correct) => {
-  //take animal from monkeypong
-  if (animal !== correct) {
-    return Alert.alert("oopsie, try again");
-  } else {
-    return Alert.alert("GOOD JOB!!!!", "That is correct!");
-  }
-
-  //check pressed animal
-  //if monkeypong !== pressed = red background
-  //if monkeypong === pressed = correct
 };

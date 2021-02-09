@@ -1,17 +1,21 @@
 import colors from "@assets/colors";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import {
   FlatList,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import { getAnimalPicture } from "../../../../assets/animalList";
-import {
-  checkCorrectAnswer,
-  generateAnimalsAtRandom,
-  shuffle,
-} from "../SenderScreens/helpers";
+import { generateAnimalsAtRandom, shuffle } from "../SenderScreens/helpers";
 
 const stylesNew = StyleSheet.create({
   container: {
@@ -29,6 +33,21 @@ const stylesNew = StyleSheet.create({
 });
 
 const Item = ({ animal, correct }) => {
+  const navigation = useNavigation();
+
+  const checkCorrectAnswer = (animal, correct) => {
+    //take animal from monkeypong
+    if (animal !== correct) {
+      return Alert.alert("oopsie, try again");
+    } else {
+      navigation.navigate("Success");
+    }
+
+    //check pressed animal
+    //if monkeypong !== pressed = red background
+    //if monkeypong === pressed = correct
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={() => checkCorrectAnswer(animal, correct)}
