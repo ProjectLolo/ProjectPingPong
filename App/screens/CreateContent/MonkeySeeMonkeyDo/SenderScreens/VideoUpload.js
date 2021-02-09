@@ -48,6 +48,37 @@ const style = StyleSheet.create({
     justifyContent: "space-around",
   },
 });
+const styles = StyleSheet.create({
+  iconContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingLeft: 40,
+    paddingRight: 40,
+  },
+  icon: {
+    width: 60,
+    height: 60,
+  },
+  image: {
+    width: 240,
+    height: 240,
+  },
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  mainContainer: {
+    width: 300,
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  rowContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+});
 
 export default function VideoUpload({route, navigation}) {
   const {videoUri, animal} = route.params;
@@ -56,12 +87,11 @@ export default function VideoUpload({route, navigation}) {
   const [videoFirebaseUrl, setVideoFirebaseUrl] = useState(null);
   const {activeKid} = useContext(AuthContext);
 
-  activeKid(route.params.activeKid);
-  console.log("AK", route.params.activeKid);
+  //activeKid(route.params.activeKid);
+  //console.log("AK", route.params.activeKid);
   // Mutation
   const [createNewMonkeyPong, {error}] = useMutation(CREATE_NEW_MONKEYPONG, {
-    onError: (error) =>
-      console.log("mutation create new monkey pong content", error),
+    onError: (error) => console.log(error),
     onCompleted(data) {
       console.log("completed", data);
       navigation.navigate("ImitationSent");
@@ -74,7 +104,7 @@ export default function VideoUpload({route, navigation}) {
     createNewMonkeyPong({
       variables: {
         animal: animal,
-        url: video,
+        url: videoFirebaseUrl,
         kidId: route.params.activeKid,
       },
     });
@@ -123,8 +153,6 @@ export default function VideoUpload({route, navigation}) {
         },
         function () {
           // Handle successful uploads on complete
-
-          // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
             console.log("File available at", downloadURL);
             setVideoFirebaseUrl(downloadURL);
@@ -215,34 +243,3 @@ export default function VideoUpload({route, navigation}) {
     </View>
   );
 }
-const styles = StyleSheet.create({
-  iconContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    paddingLeft: 40,
-    paddingRight: 40,
-  },
-  icon: {
-    width: 60,
-    height: 60,
-  },
-  image: {
-    width: 240,
-    height: 240,
-  },
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-around",
-    alignItems: "center",
-  },
-  mainContainer: {
-    width: 300,
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  rowContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
-});
