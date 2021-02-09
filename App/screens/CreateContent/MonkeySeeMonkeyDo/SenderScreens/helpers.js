@@ -1,4 +1,4 @@
-import { chooseAnimalAtRandom } from "../../../../assets/animalList";
+import {chooseAnimalAtRandom} from "../../../../assets/animalList";
 
 export const generateAnimalsAtRandom = (
   numberOfAnimalsToReturn,

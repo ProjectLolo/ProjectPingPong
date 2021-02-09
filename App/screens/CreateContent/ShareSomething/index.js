@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import * as FileSystem from 'expo-file-system';
+import React, {useState, useEffect} from "react";
+import * as FileSystem from "expo-file-system";
 import {
   View,
   Text,
@@ -13,10 +13,10 @@ import styles from "../../../styles";
 import * as ImagePicker from "expo-image-picker";
 import NavHome from "../../../components/NavHome";
 
-export default function ShareSomething({ route, navigation }) {
+export default function ShareSomething({route, navigation}) {
   useEffect(() => {
     (async () => {
-      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+      const {status} = await ImagePicker.requestCameraRollPermissionsAsync();
       const {
         status: cameraStatus,
       } = await ImagePicker.requestCameraPermissionsAsync();
@@ -29,7 +29,7 @@ export default function ShareSomething({ route, navigation }) {
   }, []);
 
   const pickVideo = async () => {
-    console.log("picker")
+    console.log("picker");
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -37,34 +37,30 @@ export default function ShareSomething({ route, navigation }) {
       quality: 0.5,
     });
 
-    
     if (!result.cancelled) {
       console.log("result0", result);
       navigation.navigate("VideoPreview", {
         uri: result.uri,
-        type: result.type === "image" ? "picture" : "video"
+        type: result.type === "image" ? "picture" : "video",
       });
     }
   };
 
   const takeVideo = async () => {
-    let result = []
-      result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Videos,
-        allowsEditing: true,
-        aspect: [3, 4],
-        quality: 0.5,
-        videoMaxDuration: 120,
-      });
+    let result = [];
+    result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+      allowsEditing: true,
+      aspect: [3, 4],
+      quality: 0.5,
+      videoMaxDuration: 120,
+    });
 
-    
-      await FileSystem.copyAsync({from: result.uri, to: `${result.uri}.mp4`});
+    await FileSystem.copyAsync({from: result.uri, to: `${result.uri}.mp4`});
     if (!result.cancelled) {
       navigation.navigate("VideoPreview", {
-
         uri: `${result.uri}.mp4`,
-        type: "video"
-
+        type: "video",
       });
     }
   };
@@ -97,10 +93,10 @@ export default function ShareSomething({ route, navigation }) {
       </View>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate("Share", { stories: route.params.stories })
+          navigation.navigate("Share", {stories: route.params.stories})
         }
       >
-        <View style={[styles.loginButton, { marginBottom: "5%" }]}>
+        <View style={[styles.loginButton, {marginBottom: "5%"}]}>
           <Text style={styles.loginButtonText}>Get content suggestions</Text>
         </View>
       </TouchableOpacity>

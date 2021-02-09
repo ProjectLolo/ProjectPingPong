@@ -1,10 +1,11 @@
 import * as React from "react";
 import CombineNavigators from "./App/navigation/CombineNavigators";
-import { Provider } from "react-redux";
+import {Provider} from "react-redux";
 import store from "./App/store";
-import { AppRegistry } from "react-native";
-import { ApolloProvider } from "@apollo/client";
+import {AppRegistry} from "react-native";
+import {ApolloProvider} from "@apollo/client";
 import client from "@config/config";
+
 import {
   useFonts,
   Montserrat_400Regular,
@@ -12,7 +13,7 @@ import {
   Montserrat_600SemiBold,
   Montserrat_500Medium,
 } from "@expo-google-fonts/montserrat";
-import { AppLoading } from "expo";
+import {AppLoading} from "expo";
 //firebase configuration
 import * as firebase from "firebase";
 import {
@@ -22,7 +23,7 @@ import {
   projectId,
   storageBucket,
   messagingSenderId,
-  measurementId
+  measurementId,
 } from "@env";
 
 const firebaseConfig = {
@@ -32,10 +33,8 @@ const firebaseConfig = {
   projectId: projectId,
   storageBucket: storageBucket,
   messagingSenderId: messagingSenderId,
-  measurementId: measurementId
+  measurementId: measurementId,
 };
-
-
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
