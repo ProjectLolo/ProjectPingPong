@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
   View,
   Text,
@@ -7,13 +7,13 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from "react-native";
-import * as VideoThumbnails from 'expo-video-thumbnails';
+import * as VideoThumbnails from "expo-video-thumbnails";
 import styles from "@styles/styles";
 import adjust from "../../styles/adjust";
 import colors from "@assets/colors";
 import images from "@assets/images";
 import fonts from "@assets/fonts";
-import { useNavigation } from "@react-navigation/native";
+import {useNavigation} from "@react-navigation/native";
 
 export default function MediaContentCard(props) {
   const [titleVid, setTitleVid] = useState("");
@@ -24,7 +24,7 @@ export default function MediaContentCard(props) {
     height: 0,
     loading: true,
   });
-  const [thumbnail, setThumbnail] = useState("")
+  const [thumbnail, setThumbnail] = useState("");
   const navigation = useNavigation();
   const {
     title,
@@ -37,11 +37,11 @@ export default function MediaContentCard(props) {
     category,
     preview,
     firstName,
-    type
+    type,
   } = props;
   console.log(video);
-  console.log("MEDIA CARD PREVIEW", preview)
-  useEffect(() => { 
+  console.log("MEDIA CARD PREVIEW", preview);
+  useEffect(() => {
     if (category === "share") {
       setTitleVid("Share Something");
       setRecImage(images.RecShare);
@@ -51,39 +51,38 @@ export default function MediaContentCard(props) {
 
   useEffect(() => {
     if (preview) {
-      setSizeImage({ ...setSizeImage, loading: true });
+      setSizeImage({...setSizeImage, loading: true});
       Image.getSize(
         preview,
         (width, height) => {
-          setSizeImage({ width: width, height: height, loading: false });
-          console.log("SIZE??????????", sizeImage)
+          setSizeImage({width: width, height: height, loading: false});
+          console.log("SIZE??????????", sizeImage);
         },
         (error) => {
-          setSizeImage({ ...sizeImage, loading: false });
+          setSizeImage({...sizeImage, loading: false});
           console.log("Size Image ERROR:", error);
         }
       );
     }
   }, [preview]);
 
-  useEffect(()=>{
-    generateThumbnail()
-  },[video])
+  useEffect(() => {
+    generateThumbnail();
+  }, [video]);
 
   const generateThumbnail = async () => {
-    if(type === "video"){
-    try {
-      const { uri } = await VideoThumbnails.getThumbnailAsync(
-        video,
-        {
+    if (type === "video") {
+      try {
+        const {uri} = await VideoThumbnails.getThumbnailAsync(video, {
           time: 15000,
-        }
-      );
-      setThumbnail(uri);
-    } catch (e) {
-      console.warn(e);
-    }} else {
-      setThumbnail(video)
+        });
+        setThumbnail(uri);
+      } catch (e) {
+        console.log("problem with thumbnail");
+        console.warn(e);
+      }
+    } else {
+      setThumbnail(video);
     }
   };
 
@@ -147,7 +146,7 @@ export default function MediaContentCard(props) {
                   height: 192,
                 },
               ]}
-              source={{ uri: thumbnail }}
+              source={{uri: thumbnail}}
             />
           )}
           <View

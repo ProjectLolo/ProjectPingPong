@@ -13,20 +13,24 @@ const stylesNew = StyleSheet.create({
   },
 });
 const handleSend = async (videoUri, videoName) => {
-  console.log("uploading video", videoUri, videoName);
-  //upload image to firebase
-  const uploadImage = async (videoUri, videoName) => {
-    const response = await fetch(videoUri);
-    const blob = await response.blob();
-    const ref = firebase
-      .storage()
-      .ref()
-      .child("userProfileImages/" + videoName);
-    return (uploadTask = ref.put(blob));
-  };
-  const firebaseAnswer = await uploadImage(videoUri, videoName);
-  console.log("firebaseAnswer", firebaseAnswer);
-  navigation.navigate("ImitationSent");
+  try {
+    console.log("uploading video", videoUri, videoName);
+    //upload image to firebase
+    const uploadImage = async (videoUri, videoName) => {
+      const response = await fetch(videoUri);
+      const blob = await response.blob();
+      const ref = firebase
+        .storage()
+        .ref()
+        .child("userProfileImages/" + videoName);
+      return (uploadTask = ref.put(blob));
+    };
+    const firebaseAnswer = await uploadImage(videoUri, videoName);
+    console.log("firebaseAnswer", firebaseAnswer);
+    navigation.navigate("ImitationSent");
+  } catch (e) {
+    console.log(e);
+  }
 };
 export default function ImitationPreview({route, navigation}) {
   return (
