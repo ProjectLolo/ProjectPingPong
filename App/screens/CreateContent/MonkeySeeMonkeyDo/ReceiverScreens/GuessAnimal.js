@@ -53,7 +53,7 @@ const Item = ({ animal, correct, id }) => {
         style={{
           width: 150,
           height: 150,
-          backgroundColor: colors.ltPurple,
+          backgroundColor: animate ? "red" : colors.ltPink,
           justifyContent: "space-evenly",
           alignItems: "center",
           margin: 10,
