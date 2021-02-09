@@ -16,10 +16,7 @@ const stylesNew = StyleSheet.create({
 
 export default function ImitationPreview({route, navigation}) {
   const handleSend = async (videoUri, videoName) => {
-    navigation.navigate(
-      "VideoUpload"
-      //, {videoUri:videoUri}
-    );
+    navigation.navigate("VideoUpload", {videoUri: videoUri});
   };
   return (
     <SafeAreaView style={stylesNew.container}>

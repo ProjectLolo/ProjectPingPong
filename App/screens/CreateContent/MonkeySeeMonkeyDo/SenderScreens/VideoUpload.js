@@ -9,8 +9,7 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from "react-native";
-//import Images from "../../assets";
-// import styles from "@styles/styles";
+
 import colors from "@assets/colors";
 import {Video} from "expo-av";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
@@ -49,10 +48,11 @@ const style = StyleSheet.create({
   },
 });
 
-export default function VideoUpload({videoUri}) {
+export default function VideoUpload({route}) {
+  const {videoUri} = route.params;
   const [loading, setLoading] = useState(false);
   const [loadingTime, setLoadingTime] = useState("");
-  const [video, setVideo] = useState(null);
+  const [videoFirebaseUrl, setVideoFirebaseUrl] = useState(null);
   //const {activeKid} = useContext(AuthContext);
 
   // activeKid(route.params.activeKid);
@@ -84,7 +84,6 @@ export default function VideoUpload({videoUri}) {
 
   // Upload Video
   useEffect(() => {
-    // console.log("ASDASDADSADADASDASD", route.params.uri);
     uploadVideo(videoUri);
   }, [videoUri]);
 
@@ -111,14 +110,12 @@ export default function VideoUpload({videoUri}) {
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           var progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
+
           setLoadingTime(Math.round(progress));
           switch (snapshot.state) {
             case firebase.storage.TaskState.PAUSED: // or 'paused'
-              console.log("Upload is paused");
               break;
             case firebase.storage.TaskState.RUNNING: // or 'running'
-              console.log("Upload is running");
               break;
           }
         },
@@ -128,11 +125,11 @@ export default function VideoUpload({videoUri}) {
         },
         function () {
           // Handle successful uploads on complete
-          console.log("image upload success");
+
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
             console.log("File available at", downloadURL);
-            setVideo(downloadURL);
+            setVideoFirebaseUrl(downloadURL);
             setLoading(false);
           });
         }
@@ -141,9 +138,6 @@ export default function VideoUpload({videoUri}) {
       console.log("error from the catch block", error);
     }
   };
-  // console.log("PREVIEW????????", route.params.uri)
-  console.log("loading?", loading);
-  console.log("loadingTIMEEEEEE", loadingTime);
 
   if (loading) {
     return (
