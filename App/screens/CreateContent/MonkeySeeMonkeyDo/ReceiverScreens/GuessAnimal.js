@@ -30,18 +30,12 @@ const Item = ({ animal, correct, id }) => {
   const navigation = useNavigation();
   const [animate, setAnimate] = useState(false);
 
-  //take animal from monkeypong
   const checkCorrectAnswer = (animal, correct) => {
     if (animal !== correct) {
-      // return Alert.alert("oopsie, try again");
       setAnimate(true);
     } else {
       navigation.navigate("Success");
     }
-
-    //check pressed animal
-    //if monkeypong !== pressed = red background
-    //if monkeypong === pressed = correct
   };
 
   return (
