@@ -11,16 +11,28 @@ const stylesNew = StyleSheet.create({
   },
 });
 
-export default function Success() {
+export default function Success({ route, navigation }) {
   return (
     <SafeAreaView style={stylesNew.container}>
       <Text>You've got it right!!!</Text>
-      <TouchableOpacity onPress={() => navigation.navigate("AnimalSelector")}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate("MonkeySeeMonkeyDo", {
+            screen: "AnimalSelector",
+          })
+        }
+      >
         <View style={styles.loginButton}>
           <Text style={styles.loginButtonText}>Let's play again</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("GameStart")}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate("MonkeySeeMonkeyDo", {
+            screen: "GameStart",
+          })
+        }
+      >
         <View style={styles.loginButton}>
           <Text style={styles.loginButtonText}>Go back to home</Text>
         </View>
