@@ -1,4 +1,4 @@
-import { createStackNavigator } from "@react-navigation/stack";
+import {createStackNavigator} from "@react-navigation/stack";
 import React from "react";
 import AnimalSelector from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/AnimalSelector";
 import GameStart from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/GameStart";
@@ -6,10 +6,13 @@ import GetReady from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/G
 import ImitationPreview from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/ImitationPreview";
 import ImitationSent from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/ImitationSent";
 import RecordImitation from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/RecordImitation";
+import VideoUpload from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/VideoUpload";
 
 const Stack = createStackNavigator();
 
-export const MonkeySeeMonkeyDoStack = ({}) => {
+export const MonkeySeeMonkeyDoStack = ({route, state}) => {
+  const {activeKid} = route.params;
+
   return (
     <Stack.Navigator initialRouteName="GameStart">
       <Stack.Screen
@@ -53,6 +56,14 @@ export const MonkeySeeMonkeyDoStack = ({}) => {
           header: () => null,
         }}
         component={ImitationSent}
+      />
+      <Stack.Screen
+        name="VideoUpload"
+        options={{
+          header: () => null,
+        }}
+        component={VideoUpload}
+        initialParams={{activeKid: activeKid}}
       />
       {/* <Stack.Screen
         name="GuessStart"

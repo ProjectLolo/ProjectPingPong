@@ -28,10 +28,11 @@ export default function GetReady({route, navigation}) {
       videoMaxDuration: 10,
     });
 
-    await FileSystem.copyAsync({from: result.uri, to: `${result.uri}`});
+    await FileSystem.copyAsync({from: result.uri, to: `${result.uri}.mp4`});
     if (!result.cancelled) {
       navigation.navigate("ImitationPreview", {
-        uri: `${result.uri}`,
+        uri: `${result.uri}.mp4`,
+        animal: animal,
         type: "video",
       });
     }

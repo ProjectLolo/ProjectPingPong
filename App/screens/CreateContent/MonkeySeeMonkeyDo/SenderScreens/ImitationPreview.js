@@ -1,9 +1,10 @@
 import styles from "@styles/styles";
 import {Video} from "expo-av";
-import * as firebase from "firebase";
+
 import React from "react";
 import {SafeAreaView, StyleSheet, Text, View} from "react-native";
 import {TouchableOpacity} from "react-native-gesture-handler";
+import {uploadVideo} from "./helpers";
 
 const stylesNew = StyleSheet.create({
   container: {
@@ -12,23 +13,14 @@ const stylesNew = StyleSheet.create({
     justifyContent: "center",
   },
 });
-// const handleSend = async (videoUri, videoName) => {
-//   console.log("uploading video", videoUri, videoName);
-//   //upload image to firebase
-//   const uploadImage = async (videoUri, videoName) => {
-//     const response = await fetch(videoUri);
-//     const blob = await response.blob();
-//     const ref = firebase
-//       .storage()
-//       .ref()
-//       .child("userProfileImages/" + videoName);
-//     return (uploadTask = ref.put(blob));
-//   };
-//   const firebaseAnswer = await uploadImage(videoUri, videoName);
-//   console.log("firebaseAnswer", firebaseAnswer);
-//   navigation.navigate("ImitationSent");
-// };
+
 export default function ImitationPreview({route, navigation}) {
+  const handleSend = async (videoUri) => {
+    navigation.navigate("VideoUpload", {
+      videoUri: videoUri,
+      animal: route.params.animal,
+    });
+  };
   return (
     <SafeAreaView style={stylesNew.container}>
       <Text style={[styles.h2, styles.center]}>
@@ -43,11 +35,7 @@ export default function ImitationPreview({route, navigation}) {
         useNativeControls
         style={{width: 300, height: 400}}
       />
-      <TouchableOpacity
-        onPress={() =>
-          handleSend(route.params.uri, `${Math.round(Math.random() * 1000000)}`)
-        }
-      >
+      <TouchableOpacity onPress={() => handleSend(route.params.uri)}>
         <View style={styles.loginButton}>
           <Text style={styles.loginButtonText}>Send</Text>
         </View>

@@ -209,21 +209,30 @@ export const SUGGESTION = gql`
   mutation suggestion($suggestion: String!) {
     suggestion(suggestion: $suggestion)
   }
-`
+`;
 export const DELETE_KID = gql`
-mutation deleteKid($kidId: String!) {
-  deleteKid(kidId: $kidId)
-}
-`
+  mutation deleteKid($kidId: String!) {
+    deleteKid(kidId: $kidId)
+  }
+`;
 
 export const DELETE_MEMBER = gql`
-mutation deleteMember($_id: String!) {
-  deleteMember(_id: $_id)
-}
-`
+  mutation deleteMember($_id: String!) {
+    deleteMember(_id: $_id)
+  }
+`;
 
 export const RESET_PASSWORD = gql`
-mutation forgotPassword($email: String!) {
-  forgotPassword(email: $email)
-}
-`
+  mutation forgotPassword($email: String!) {
+    forgotPassword(email: $email)
+  }
+`;
+export const CREATE_NEW_MONKEYPONG = gql`
+  mutation createMonkeyPong($animal: String, $kidId: ID, $url: String) {
+    createMonkeyPong(animal: $animal, kidId: $kidId, url: $url) {
+      animal
+      kidId
+      url
+    }
+  }
+`;

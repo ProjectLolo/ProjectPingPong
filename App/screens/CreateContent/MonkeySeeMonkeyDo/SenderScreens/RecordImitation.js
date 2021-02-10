@@ -1,9 +1,9 @@
 // import styles from "@styles/styles";
-import { Video } from "expo-av";
-import { Camera } from "expo-camera";
-import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, SafeAreaView, StyleSheet, Text, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import {Video} from "expo-av";
+import {Camera} from "expo-camera";
+import React, {useEffect, useRef, useState} from "react";
+import {Dimensions, SafeAreaView, StyleSheet, Text, View} from "react-native";
+import {TouchableOpacity} from "react-native-gesture-handler";
 
 const WINDOW_HEIGHT = Dimensions.get("window").height;
 
@@ -21,7 +21,7 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
-      const { status } = await Camera.requestPermissionsAsync();
+      const {status} = await Camera.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
   }, []);
@@ -32,7 +32,7 @@ export default function App() {
 
   const takePicture = async () => {
     if (cameraRef.current) {
-      const options = { quality: 0.5, base64: true, skipProcessing: true };
+      const options = {quality: 0.5, base64: true, skipProcessing: true};
       const data = await cameraRef.current.takePictureAsync(options);
       const source = data.uri;
       if (source) {
@@ -44,6 +44,7 @@ export default function App() {
   };
 
   const recordVideo = async () => {
+    console.log("-----------------------------------------------------------");
     if (cameraRef.current) {
       try {
         const videoRecordPromise = cameraRef.current.recordAsync();
@@ -59,7 +60,9 @@ export default function App() {
           }
         }
       } catch (error) {
-        console.warn(error);
+        console.log("ERROR");
+        //console.warn("error in record video file", error);
+        console.log("error in record video file", error);
       }
     }
   };
@@ -91,19 +94,13 @@ export default function App() {
 
   const renderCancelPreviewButton = () => (
     <TouchableOpacity onPress={cancelPreview} style={styles.closeButton}>
-      <View style={[styles.closeCross, { transform: [{ rotate: "45deg" }] }]} />
-      <View
-        style={[styles.closeCross, { transform: [{ rotate: "-45deg" }] }]}
-      />
+      <View style={[styles.closeCross, {transform: [{rotate: "45deg"}]}]} />
+      <View style={[styles.closeCross, {transform: [{rotate: "-45deg"}]}]} />
     </TouchableOpacity>
   );
 
   const renderVideoPlayer = () => (
-    <Video
-      source={{ uri: videoSource }}
-      shouldPlay={true}
-      style={styles.media}
-    />
+    <Video source={{uri: videoSource}} shouldPlay={true} style={styles.media} />
   );
 
   const renderVideoRecordIndicator = () => (

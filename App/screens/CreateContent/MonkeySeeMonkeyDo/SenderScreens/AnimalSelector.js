@@ -6,7 +6,7 @@ import NavHome from "../../../../components/NavHome";
 import {generateAnimalsAtRandom} from "./helpers";
 
 export default function AnimalSelector({navigation}) {
-  const numberOfAnimals = 3;
+  const numberOfAnimals = 2;
   const [refreshSwitch, setRefreshSwitch] = useState(true);
   const [animalsToSelect, setAnimalsToSelect] = useState(
     generateAnimalsAtRandom(numberOfAnimals)
@@ -21,7 +21,7 @@ export default function AnimalSelector({navigation}) {
   const goToGetReadyScreen = (animal) => {
     navigation.navigate("GetReady", {animal: animal});
   };
-  console.log("animalsToSelect", animalsToSelect);
+
   return (
     <View
       style={{
