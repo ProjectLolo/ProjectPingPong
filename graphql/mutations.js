@@ -228,7 +228,7 @@ export const RESET_PASSWORD = gql`
   }
 `;
 export const CREATE_NEW_MONKEYPONG = gql`
-  mutation createMonkeyPong($animal: String!, $kidId: String!, $url: String!) {
+  mutation createMonkeyPong($animal: String, $kidId: String, $url: String) {
     createMonkeyPong(animal: $animal, kidId: $kidId, url: $url) {
       animal
       kidId

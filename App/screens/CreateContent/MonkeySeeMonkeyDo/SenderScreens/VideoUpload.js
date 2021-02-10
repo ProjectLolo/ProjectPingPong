@@ -85,13 +85,15 @@ export default function VideoUpload({route, navigation}) {
   const [loading, setLoading] = useState(false);
   const [loadingTime, setLoadingTime] = useState("");
   const [videoFirebaseUrl, setVideoFirebaseUrl] = useState(null);
-  const {activeKid} = useContext(AuthContext);
+  const {activeKid} = route.params.params;
+
+  // console.log("route video upload", Object.keys(route.params.params));
 
   //activeKid(route.params.activeKid);
   //console.log("AK", route.params.activeKid);
   // Mutation
   const [createNewMonkeyPong, {error}] = useMutation(CREATE_NEW_MONKEYPONG, {
-    onError: (error) => console.log("mutation error", error),
+    onError: (error) => console.log(error),
     onCompleted(data) {
       console.log("completed", data);
       navigation.navigate("ImitationSent");
@@ -101,10 +103,11 @@ export default function VideoUpload({route, navigation}) {
   //console.log("activeKid", route.params.kidId);
 
   function handleSend() {
+    console.log("param for query", animal, activeKid, videoFirebaseUrl);
     createNewMonkeyPong({
       variables: {
         animal: animal,
-        kidId: route.params.activeKid,
+        kidId: activeKid,
         url: videoFirebaseUrl,
       },
     });

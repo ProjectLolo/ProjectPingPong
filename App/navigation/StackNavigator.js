@@ -1,5 +1,5 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import {NavigationContainer} from "@react-navigation/native";
+import {createStackNavigator} from "@react-navigation/stack";
 import * as Analytics from "expo-firebase-analytics";
 import React from "react";
 import TakeProfilePicture from "../components/TakeProfilePicture";
@@ -33,9 +33,9 @@ import SettingsSuggestions from "../screens/SettingsSuggestions";
 import ShareFamilyCode from "../screens/ShareFamilyCode";
 import UploadKidProfile from "../screens/UploadKidProfile";
 import UploadUserProfile from "../screens/UploadUserProfile";
-import { MonkeySeeMonkeyDoStack } from "./MonkeySeeNavigator";
+import {MonkeySeeMonkeyDoStack} from "./MonkeySeeNavigator";
 
-export default function authNavigator({ route, state }) {
+export default function authNavigator({route, state}) {
   const Stack = createStackNavigator();
 
   function getActiveRouteName(navigationState) {
@@ -52,7 +52,7 @@ export default function authNavigator({ route, state }) {
         initialRouteName={
           state.screen === "SignUp" ? "UploadUserProfile" : "KidCircles"
         }
-        screenOptions={{ headerShown: false }}
+        screenOptions={{headerShown: false}}
         onNavigationStateChange={(prevState, currentState) => {
           console.log("ANALYTICS");
           const currentScreen = getActiveRouteName(currentState);
@@ -137,6 +137,7 @@ export default function authNavigator({ route, state }) {
         <Stack.Screen
           name="MonkeySeeMonkeyDo"
           component={MonkeySeeMonkeyDoStack}
+          initialParams={state}
         />
         <Stack.Screen name="ReadAStory" component={ReadAStory} />
         <Stack.Screen name="Story" component={Story} />
