@@ -91,7 +91,7 @@ export default function VideoUpload({route, navigation}) {
   //console.log("AK", route.params.activeKid);
   // Mutation
   const [createNewMonkeyPong, {error}] = useMutation(CREATE_NEW_MONKEYPONG, {
-    onError: (error) => console.log(error),
+    onError: (error) => console.log("mutation error", error),
     onCompleted(data) {
       console.log("completed", data);
       navigation.navigate("ImitationSent");
@@ -104,8 +104,8 @@ export default function VideoUpload({route, navigation}) {
     createNewMonkeyPong({
       variables: {
         animal: animal,
-        url: videoFirebaseUrl,
         kidId: route.params.activeKid,
+        url: videoFirebaseUrl,
       },
     });
   }
