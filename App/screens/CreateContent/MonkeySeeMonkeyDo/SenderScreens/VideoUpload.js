@@ -1,10 +1,9 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import * as firebase from "firebase";
 import {
   View,
   Text,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   Image,
   StyleSheet,
   ActivityIndicator,
@@ -12,7 +11,7 @@ import {
 import Images from "../../../../assets";
 import colors from "@assets/colors";
 import {Video} from "expo-av";
-import {MaterialCommunityIcons} from "@expo/vector-icons";
+
 import {useMutation} from "@apollo/client";
 import {CREATE_NEW_MONKEYPONG} from "../../../../../graphql/mutations";
 
@@ -86,20 +85,15 @@ export default function VideoUpload({route, navigation}) {
   const [loadingTime, setLoadingTime] = useState("");
   const [videoFirebaseUrl, setVideoFirebaseUrl] = useState(null);
 
-  console.log("route video upload------->", Object.keys(route.params));
-
-  //activeKid(route.params.activeKid);
-  //console.log("AK---------->", activeKid(route.params.activeKid));
-  // Mutation
   const [createNewMonkeyPong, {error}] = useMutation(CREATE_NEW_MONKEYPONG, {
-    onError: (error) => console.log(error),
+    onError: (error) => {
+      console.log(JSON.stringify(error, null, 2));
+    },
     onCompleted(data) {
       console.log("completed", data);
       navigation.navigate("ImitationSent");
     },
   });
-
-  //console.log("activeKid", route.params.kidId);
 
   function handleSend() {
     console.log("param for query", animal, activeKid, videoFirebaseUrl);
