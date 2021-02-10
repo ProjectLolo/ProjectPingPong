@@ -81,16 +81,15 @@ const styles = StyleSheet.create({
 });
 
 export default function VideoUpload({route, navigation}) {
-  const {videoUri, animal} = route.params;
+  const {videoUri, animal, activeKid} = route.params;
   const [loading, setLoading] = useState(false);
   const [loadingTime, setLoadingTime] = useState("");
   const [videoFirebaseUrl, setVideoFirebaseUrl] = useState(null);
-  const {activeKid} = route.params.params;
 
-  // console.log("route video upload", Object.keys(route.params.params));
+  console.log("route video upload------->", Object.keys(route.params));
 
   //activeKid(route.params.activeKid);
-  //console.log("AK", route.params.activeKid);
+  //console.log("AK---------->", activeKid(route.params.activeKid));
   // Mutation
   const [createNewMonkeyPong, {error}] = useMutation(CREATE_NEW_MONKEYPONG, {
     onError: (error) => console.log(error),

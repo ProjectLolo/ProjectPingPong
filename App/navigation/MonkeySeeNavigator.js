@@ -63,7 +63,7 @@ export const MonkeySeeMonkeyDoStack = ({route, state}) => {
           header: () => null,
         }}
         component={VideoUpload}
-        initialParams={activeKid}
+        initialParams={{activeKid: activeKid}}
       />
       {/* <Stack.Screen
         name="GuessStart"
