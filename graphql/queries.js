@@ -112,3 +112,17 @@ export const GET_USER_ASSOCIATED_TO_KID = gql`
     }
   }
 `;
+export const GET_CONVERSATION_LIST = gql`
+  query findConversationList {
+    findConversationList {
+      _id
+      senderId
+      recipientId
+      pongId {
+        url
+        animal
+        kidId
+      }
+    }
+  }
+`;

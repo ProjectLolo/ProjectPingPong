@@ -22,8 +22,8 @@ export default function Success({route, navigation}) {
             "MonkeySeeMonkeyDo",
             {
               screen: "AnimalSelector",
-            },
-            {familyMember: userId}
+            }
+            //{familyMember: senderId}
           )
         }
       >
