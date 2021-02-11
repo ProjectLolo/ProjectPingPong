@@ -1,9 +1,10 @@
 import * as FileSystem from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
 import React from "react";
-import {SafeAreaView, StyleSheet, Text, View} from "react-native";
-import {TouchableOpacity} from "react-native-gesture-handler";
-import AnimalCard from "../../../../components/AnimalCard";
+import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { getAnimalPicture } from "../../../../assets/animalList";
+import { windowWidth } from "../../../../assets/utils/dimentions";
 import styles from "../../../../styles/index";
 
 const stylesNew = StyleSheet.create({
@@ -16,8 +17,8 @@ const stylesNew = StyleSheet.create({
   },
 });
 
-export default function GetReady({route, navigation}) {
-  const {animal} = route.params;
+export default function GetReady({ route, navigation }) {
+  const { animal } = route.params;
   const takeVideo = async () => {
     let result = [];
     result = await ImagePicker.launchCameraAsync({
@@ -28,7 +29,7 @@ export default function GetReady({route, navigation}) {
       videoMaxDuration: 10,
     });
 
-    await FileSystem.copyAsync({from: result.uri, to: `${result.uri}.mp4`});
+    await FileSystem.copyAsync({ from: result.uri, to: `${result.uri}.mp4` });
     if (!result.cancelled) {
       navigation.navigate("ImitationPreview", {
         uri: `${result.uri}.mp4`,
@@ -38,12 +39,20 @@ export default function GetReady({route, navigation}) {
     }
   };
 
+  const animalPicture = getAnimalPicture(animal);
+
   return (
     <SafeAreaView style={stylesNew.container}>
-      <AnimalCard animal={animal} />
-      <Text>{`Are you ready to unleash your inner ${animal}?`}</Text>
+      <Image
+        style={{ resizeMode: "contain", height: "40%" }}
+        source={animalPicture}
+      />
+
+      <Text
+        style={styles.title}
+      >{`Are you ready to unleash your inner ${animal}?`}</Text>
       <TouchableOpacity onPress={takeVideo}>
-        <View style={styles.loginButton}>
+        <View style={[styles.loginButton, { width: windowWidth * 0.9 }]}>
           <Text style={styles.loginButtonText}>Let's go!</Text>
         </View>
       </TouchableOpacity>
