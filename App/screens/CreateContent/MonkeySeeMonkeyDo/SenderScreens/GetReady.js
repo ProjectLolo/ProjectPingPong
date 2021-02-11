@@ -46,7 +46,6 @@ export default function GetReady({ route, navigation }) {
         style={{ resizeMode: "contain", height: "40%", marginTop: 50 }}
         source={animalPicture}
       />
-
       <Text
         style={styles.title}
       >{`Are you ready to unleash your inner ${animal}?`}</Text>
