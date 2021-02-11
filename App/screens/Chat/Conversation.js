@@ -11,7 +11,7 @@ import {GET_MONKEY_PONGS} from "../../../graphql/queries";
 
 const Item = ({url, sender, animal, kidId, receiver}) => {
   console.log("kidId", kidId);
-  
+
   const align = sender === "1" ? "flex-end" : "flex-start";
   return (
     <View
@@ -45,17 +45,17 @@ const Item = ({url, sender, animal, kidId, receiver}) => {
 };
 
 export default function Conversation({route, navigation}) {
-  const {data, refetch} = useQuery(GET_MONKEY_PONGS, {
-    variables: {
-      kidId: route.params.activeKid,
-    },
-    onError(error) {
-      console.log("error", error.graphQLErrors);
-    },
-    onCompleted(fetchedData) {
-      console.log("works", fetchedData);
-    },
-  });
+  // const {data, refetch} = useQuery(GET_MONKEY_PONGS, {
+  //   variables: {
+  //     kidId: route.params.activeKid,
+  //   },
+  //   onError(error) {
+  //     console.log("error", error.graphQLErrors);
+  //   },
+  //   onCompleted(fetchedData) {
+  //     console.log("works", fetchedData);
+  //   },
+  // });
   console.log("data from query", data);
   const renderItem = ({item}) => {
     return (

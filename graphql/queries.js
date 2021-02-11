@@ -104,3 +104,11 @@ export const GET_MONKEY_PONGS = gql`
     }
   }
 `;
+
+export const GET_USER_ASSOCIATED_TO_KID = gql`
+  query findKidById($kidId: String!) {
+    findKidById(kidId: $kidId) {
+      userId
+    }
+  }
+`;
