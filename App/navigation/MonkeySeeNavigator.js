@@ -12,6 +12,7 @@ const Stack = createStackNavigator();
 
 export const MonkeySeeMonkeyDoStack = ({route, state}) => {
   const {activeKid} = route.params;
+  console.log("activeKid ------------------>", activeKid);
 
   return (
     <Stack.Navigator initialRouteName="GameStart">

@@ -97,3 +97,10 @@ export const FIND_USER_BY_ID = gql`
     }
   }
 `;
+export const GET_MONKEY_PONGS = gql`
+  query monkeyPongs($kidId: ID!) {
+    monkeyPongs(kidId: $kidId) {
+      animal
+    }
+  }
+`;

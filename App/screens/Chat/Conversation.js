@@ -1,16 +1,17 @@
+import {useQuery} from "@apollo/client";
 import styles from "@styles/styles";
 import React from "react";
-import { Text, View } from "react-native";
-import {
-  FlatList,
-  TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
+import {Text, View} from "react-native";
+import {FlatList, TouchableWithoutFeedback} from "react-native-gesture-handler";
 import colors from "../../assets/colors/index";
-import { windowHeight, windowWidth } from "../../assets/utils/dimentions";
+import {windowHeight, windowWidth} from "../../assets/utils/dimentions";
 import NavHome from "../../components/NavHome";
-import { data } from "./data";
+import {data} from "./data";
+import {GET_MONKEY_PONGS} from "../../../graphql/queries";
 
-const Item = ({ url, sender, animal, kidId, receiver }) => {
+const Item = ({url, sender, animal, kidId, receiver}) => {
+  console.log("kidId", kidId);
+  
   const align = sender === "1" ? "flex-end" : "flex-start";
   return (
     <View
@@ -36,19 +37,31 @@ const Item = ({ url, sender, animal, kidId, receiver }) => {
       >
         <Text style={styles.regular}>the video: {animal}</Text>
       </View>
-      <Text style={[styles.regular, { marginTop: 3 }]}>
+      <Text style={[styles.regular, {marginTop: 3}]}>
         {sender === "1" ? "you" : "tony"}
       </Text>
     </View>
   );
 };
 
-export default function Conversation({ route, navigation }) {
-  const renderItem = ({ item }) => {
+export default function Conversation({route, navigation}) {
+  const {data, refetch} = useQuery(GET_MONKEY_PONGS, {
+    variables: {
+      kidId: route.params.activeKid,
+    },
+    onError(error) {
+      console.log("error", error.graphQLErrors);
+    },
+    onCompleted(fetchedData) {
+      console.log("works", fetchedData);
+    },
+  });
+  console.log("data from query", data);
+  const renderItem = ({item}) => {
     return (
       <TouchableWithoutFeedback
         onPress={() =>
-          navigation.navigate("GuessAnimal", { animal: item.pongId.animal })
+          navigation.navigate("GuessAnimal", {animal: item.pongId.animal})
         }
       >
         <Item
@@ -70,7 +83,7 @@ export default function Conversation({ route, navigation }) {
       }}
     >
       <NavHome />
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <View
           style={{
             width: windowWidth,
@@ -78,6 +91,7 @@ export default function Conversation({ route, navigation }) {
         >
           <FlatList
             data={data}
+            key={parseInt(Math.random() * 100000)}
             keyExtractor={(item) => item._id}
             renderItem={renderItem}
             style={{

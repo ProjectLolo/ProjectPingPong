@@ -1,7 +1,7 @@
 import styles from "@styles/styles";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import {StyleSheet, Text, View} from "react-native";
+import {TouchableWithoutFeedback} from "react-native-gesture-handler";
 import colors from "../../assets/colors/index";
 import NavButtons from "../../components/NavButtons";
 import NavHome from "../../components/NavHome";
@@ -17,16 +17,16 @@ const stylesNew = StyleSheet.create({
   },
 });
 
-export default function Chats({ route, navigation }) {
-  const { kidData } = route.params;
+export default function Chats({route, navigation}) {
+  const {kidData} = route.params;
 
   return (
-    <View style={{ flex: 1, justifyContent: "space-evenly" }}>
+    <View style={{flex: 1, justifyContent: "space-evenly"}}>
       <NavHome />
       <Text style={styles.titleText}>
         Welcome to {route.params.kidName}'s chats!
       </Text>
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <TouchableWithoutFeedback
           onPress={() => navigation.navigate("Conversation")}
         >
