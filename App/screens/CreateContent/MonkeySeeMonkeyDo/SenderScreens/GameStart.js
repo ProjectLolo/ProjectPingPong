@@ -1,18 +1,29 @@
 import styles from "@styles/styles";
 import React from "react";
-import { Text, TouchableWithoutFeedback, View } from "react-native";
+import { Image, Text, TouchableWithoutFeedback, View } from "react-native";
+import monkeyImitator from "../../../../assets/images/monkeyImitator.png";
 import NavHome from "../../../../components/NavHome";
 
 export default function GameStart({ navigation }) {
   return (
     <View>
       <NavHome />
-      <View>
-        <Text style={[styles.title, { marginTop: 0 }]}>
-          {"Let's play monkey see, monkey do \n"}
-          {
-            "You imitate an animal, and [other family member] \n has to guess which one you imitated"
-          }
+      <View style={styles.screenContainer}>
+        <Text style={[styles.title, { marginTop: 20 }]}>
+          "Let's play monkey see, monkey do"
+        </Text>
+        <Image
+          source={monkeyImitator}
+          style={{
+            resizeMode: "contain",
+            width: 200,
+            height: 300,
+            alignSelf: "center",
+          }}
+        />
+        <Text style={styles.text}>
+          "You imitate an animal, and [other family member] has to guess which
+          one you imitated"
         </Text>
         <TouchableWithoutFeedback
           onPress={() => navigation.navigate("AnimalSelector")}
