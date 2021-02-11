@@ -1,19 +1,17 @@
 import * as FileSystem from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
 import React from "react";
-import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { getAnimalPicture } from "../../../../assets/animalList";
 import { windowWidth } from "../../../../assets/utils/dimentions";
+import NavHome from "../../../../components/NavHome";
 import styles from "../../../../styles/index";
 
 const stylesNew = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: "center",
-    justifyContent: "space-around",
-    marginBottom: 100,
-    marginTop: 100,
+    justifyContent: "space-between",
   },
 });
 
@@ -42,9 +40,10 @@ export default function GetReady({ route, navigation }) {
   const animalPicture = getAnimalPicture(animal);
 
   return (
-    <SafeAreaView style={stylesNew.container}>
+    <View style={stylesNew.container}>
+      <NavHome />
       <Image
-        style={{ resizeMode: "contain", height: "40%" }}
+        style={{ resizeMode: "contain", height: "40%", marginTop: 50 }}
         source={animalPicture}
       />
 
@@ -56,6 +55,6 @@ export default function GetReady({ route, navigation }) {
           <Text style={styles.loginButtonText}>Let's go!</Text>
         </View>
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 }

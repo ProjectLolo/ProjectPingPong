@@ -6,9 +6,9 @@ import NavHome from "../../../../components/NavHome";
 
 export default function GameStart({ navigation }) {
   return (
-    <View>
+    <View style={styles.screenContainer}>
       <NavHome />
-      <View style={styles.screenContainer}>
+      <View>
         <Text style={[styles.title, { marginTop: 20 }]}>
           "Let's play monkey see, monkey do"
         </Text>
