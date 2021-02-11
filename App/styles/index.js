@@ -1,10 +1,14 @@
-import {StyleSheet} from "react-native";
-import fonts from "@assets/fonts";
-import adjust from "./adjust";
 import colors from "@assets/colors";
+import fonts from "@assets/fonts";
+import { StyleSheet } from "react-native";
+import adjust from "./adjust";
 
 export default StyleSheet.create({
   //login/signup/password -screens
+  screenContainer: {
+    display: "flex",
+    justifyContent: "center",
+  },
   title: {
     fontSize: adjust(18),
     fontFamily: fonts.bold,
@@ -135,7 +139,7 @@ export default StyleSheet.create({
     justifyContent: "center",
     borderRadius: 20,
   },
-  linBottom: {paddingVertical: "5%", borderRadius: 20},
+  linBottom: { paddingVertical: "5%", borderRadius: 20 },
 
   //NavButtons
   navBtsContainer: {
@@ -150,12 +154,12 @@ export default StyleSheet.create({
     backgroundColor: "white",
     width: "25%",
     shadowColor: "black",
-    shadowOffset: {width: 0, height: 0},
+    shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 50,
     alignSelf: "center",
   },
-  navBtContainer: {padding: 5},
+  navBtContainer: { padding: 5 },
   navBtImage: {
     width: 60,
     height: 60,
