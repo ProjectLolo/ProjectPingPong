@@ -97,3 +97,23 @@ export const FIND_USER_BY_ID = gql`
     }
   }
 `;
+
+export const GET_CONVERSATIONLIST = gql`
+  query findConversationList($userId: String!) {
+    findConversationList(userId: $userId) {
+      _id
+      recipientId
+      senderId
+      url
+      pongId {
+        _id
+        animal
+        kidId
+        url
+        userId {
+          _ids
+        }
+      }
+    }
+  }
+`;
