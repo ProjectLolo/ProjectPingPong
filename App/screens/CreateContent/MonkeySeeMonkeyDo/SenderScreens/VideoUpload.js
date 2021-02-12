@@ -90,7 +90,6 @@ export default function VideoUpload({route, navigation}) {
   const [loading, setLoading] = useState(false);
   const [loadingTime, setLoadingTime] = useState("");
   const [videoFirebaseUrl, setVideoFirebaseUrl] = useState(null);
-  //const [recipientId, setRecipientId] = useState("");
 
   const [createNewMonkeyPong, {error}] = useMutation(CREATE_NEW_MONKEYPONG, {
     onError: (error) => {
@@ -98,7 +97,7 @@ export default function VideoUpload({route, navigation}) {
     },
     onCompleted(data) {
       console.log("completed", data);
-      navigation.navigate("ImitationSent");
+      navigation.navigate("ImitationSent", {recipientId: recipientId});
     },
   });
 
@@ -115,7 +114,6 @@ export default function VideoUpload({route, navigation}) {
   });
 
   function handleSend() {
-    console.log("param for query", animal, activeKid, videoFirebaseUrl);
     createNewMonkeyPong({
       variables: {
         animal: animal,

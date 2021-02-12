@@ -1,3 +1,4 @@
+import {useIsFocused} from "@react-navigation/native";
 import {Video} from "expo-av";
 import React from "react";
 import {Button, StyleSheet, View} from "react-native";
@@ -22,6 +23,7 @@ const styles = StyleSheet.create({
 export default function VideoPlayer({url}) {
   const video = React.useRef({});
   const [status, setStatus] = React.useState();
+  const isFocused = useIsFocused();
   return (
     <View style={styles.container}>
       <Video
@@ -32,7 +34,7 @@ export default function VideoPlayer({url}) {
         }}
         useNativeControls
         resizeMode="contain"
-        shouldPlay={true}
+        shouldPlay={isFocused}
         isLooping
         onPlaybackStatusUpdate={(status) => setStatus(() => status)}
       />
