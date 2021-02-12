@@ -1,19 +1,19 @@
-import React, {useEffect, useState} from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableWithoutFeedback,
-  StyleSheet,
-  ActivityIndicator,
-} from "react-native";
-import * as VideoThumbnails from "expo-video-thumbnails";
-import styles from "@styles/styles";
-import adjust from "../../styles/adjust";
 import colors from "@assets/colors";
-import images from "@assets/images";
 import fonts from "@assets/fonts";
-import {useNavigation} from "@react-navigation/native";
+import images from "@assets/images";
+import { useNavigation } from "@react-navigation/native";
+import styles from "@styles/styles";
+import * as VideoThumbnails from "expo-video-thumbnails";
+import React, { useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
+import adjust from "../../styles/adjust";
 
 export default function MediaContentCard(props) {
   const [titleVid, setTitleVid] = useState("");
@@ -51,15 +51,15 @@ export default function MediaContentCard(props) {
 
   useEffect(() => {
     if (preview) {
-      setSizeImage({...setSizeImage, loading: true});
+      setSizeImage({ ...setSizeImage, loading: true });
       Image.getSize(
         preview,
         (width, height) => {
-          setSizeImage({width: width, height: height, loading: false});
+          setSizeImage({ width: width, height: height, loading: false });
           console.log("SIZE??????????", sizeImage);
         },
         (error) => {
-          setSizeImage({...sizeImage, loading: false});
+          setSizeImage({ ...sizeImage, loading: false });
           console.log("Size Image ERROR:", error);
         }
       );
@@ -73,7 +73,7 @@ export default function MediaContentCard(props) {
   const generateThumbnail = async () => {
     if (type === "video") {
       try {
-        const {uri} = await VideoThumbnails.getThumbnailAsync(video, {
+        const { uri } = await VideoThumbnails.getThumbnailAsync(video, {
           time: 15000,
         });
         setThumbnail(uri);
@@ -146,7 +146,7 @@ export default function MediaContentCard(props) {
                   height: 192,
                 },
               ]}
-              source={{uri: thumbnail}}
+              source={{ uri: thumbnail }}
             />
           )}
           <View

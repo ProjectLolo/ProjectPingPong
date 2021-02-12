@@ -1,14 +1,16 @@
-import {useQuery} from "@apollo/client";
 import styles from "@styles/styles";
-import React from "react";
-import {Text, View} from "react-native";
-import {FlatList, TouchableWithoutFeedback} from "react-native-gesture-handler";
+import { Video } from "expo-av";
+import React, { useRef } from "react";
+import { Text, View } from "react-native";
+import {
+  FlatList,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import colors from "../../assets/colors/index";
-import {windowHeight, windowWidth} from "../../assets/utils/dimentions";
+import { windowHeight, windowWidth } from "../../assets/utils/dimentions";
 import NavHome from "../../components/NavHome";
 
 const Item = ({
-  url,
   activeUser,
   sender,
   animal,
@@ -16,8 +18,24 @@ const Item = ({
   kidName,
   relation,
   receiver,
+  url,
 }) => {
   const align = sender === activeUser ? "flex-end" : "flex-start";
+
+  const video = useRef(null);
+  // const [thumbnail, setThumbnail] = useState("");
+
+  // const generateThumbnail = async () => {
+  //   try {
+  //     const { uri } = await VideoThumbnails.getThumbnailAsync(url, {
+  //       time: 15000,
+  //     });
+  //     setThumbnail(uri);
+  //   } catch (error) {
+  //     console.warn(error);
+  //   }
+  // };
+
   return (
     <View
       style={{
@@ -40,16 +58,24 @@ const Item = ({
           alignItems: "center",
         }}
       >
-        <Text style={styles.regular}>the video: {animal}</Text>
+        {/* <Text style={styles.regular}>the video: {animal}</Text> */}
+        <Video
+          ref={video}
+          style={{ height: "100%", width: "100%" }}
+          source={{ uri: url }}
+          shouldPlay={false}
+          isLooping={false}
+          resizeMode={Video.RESIZE_MODE_COVER}
+        />
       </View>
-      <Text style={[styles.regular, {marginTop: 3}]}>
+      <Text style={[styles.regular, { marginTop: 3 }]}>
         {sender === activeUser ? "you" : relation ? relation : kidName}
       </Text>
     </View>
   );
 };
 
-export default function Conversation({route, navigation}) {
+export default function Conversation({ route, navigation }) {
   const {
     activeUser,
     conversation,
@@ -60,9 +86,9 @@ export default function Conversation({route, navigation}) {
 
   //console.log("RELATION ID", relationId);
   const data = conversation.reverse();
+  console.log("data from query", data);
 
-  //console.log("data from query", data);
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     //console.log("item", item);
     return (
       <TouchableWithoutFeedback
@@ -75,7 +101,7 @@ export default function Conversation({route, navigation}) {
         }
       >
         <Item
-          url={item.url}
+          url={item.pongId.url}
           activeUser={activeUser}
           sender={item.senderId}
           kidId={item.pongId.kidId}
@@ -96,7 +122,7 @@ export default function Conversation({route, navigation}) {
       }}
     >
       <NavHome />
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <View
           style={{
             width: windowWidth,

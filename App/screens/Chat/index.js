@@ -1,12 +1,15 @@
-import {useQuery} from "@apollo/client";
-import {useIsFocused} from "@react-navigation/native";
+import { useQuery } from "@apollo/client";
+import { useIsFocused } from "@react-navigation/native";
 import styles from "@styles/styles";
-import React, {useEffect, useState} from "react";
-import {StyleSheet, Text, View} from "react-native";
-import {TouchableWithoutFeedback} from "react-native-gesture-handler";
-import {FIND_KID_BY_ID, GET_CONVERSATION_LIST} from "../../../graphql/queries";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import {
+  FIND_KID_BY_ID,
+  GET_CONVERSATION_LIST,
+} from "../../../graphql/queries";
 import colors from "../../assets/colors/index";
-import {windowWidth} from "../../assets/utils/dimentions";
+import { windowWidth } from "../../assets/utils/dimentions";
 import NavButtons from "../../components/NavButtons";
 import NavHome from "../../components/NavHome";
 
@@ -24,7 +27,7 @@ const stylesNew = StyleSheet.create({
 });
 const getListOfUserIds = (data, activeUser) => {
   let userIds = [activeUser];
-  data.forEach(({senderId, recipientId}) => {
+  data.forEach(({ senderId, recipientId }) => {
     if (!userIds.includes(senderId)) {
       userIds.push(senderId);
     }
@@ -41,7 +44,7 @@ const separateConversationListsByUsers = (data, activeUser) => {
   const conversations = {};
   listOfUserIds.forEach((userId) => {
     conversations[userId] = {
-      conversationList: data.filter(({senderId, recipientId}) => {
+      conversationList: data.filter(({ senderId, recipientId }) => {
         return userId === senderId || userId === recipientId;
       }),
     };
@@ -49,15 +52,15 @@ const separateConversationListsByUsers = (data, activeUser) => {
 
   return conversations;
 };
-export default function Chats({route, navigation}) {
+export default function Chats({ route, navigation }) {
   const isFocused = useIsFocused();
   const [conversations, setConversations] = useState("");
   const [conversationsWithRelations, setConversationsWithRelations] = useState(
     ""
   );
-  const {kidData, activeKid, activeUser} = route.params;
+  const { kidData, activeKid, activeUser } = route.params;
   const [familyData, setFamilyData] = useState("");
-  const {conversationData, refetch} = useQuery(GET_CONVERSATION_LIST, {
+  const { conversationData, refetch } = useQuery(GET_CONVERSATION_LIST, {
     variables: {
       kidId: activeKid,
     },
@@ -73,7 +76,7 @@ export default function Chats({route, navigation}) {
       );
     },
   });
-  const {data, error, refetch: refetchKidData} = useQuery(FIND_KID_BY_ID, {
+  const { data, error, refetch: refetchKidData } = useQuery(FIND_KID_BY_ID, {
     variables: {
       kidId: activeKid,
     },
@@ -82,8 +85,8 @@ export default function Chats({route, navigation}) {
     },
     onCompleted(fetchedData) {
       setFamilyData(
-        fetchedData.findKidById.familyMembers.map(({relation, userId}) => {
-          return {relation: relation, userId: userId._id};
+        fetchedData.findKidById.familyMembers.map(({ relation, userId }) => {
+          return { relation: relation, userId: userId._id };
         })
       );
     },
@@ -98,8 +101,8 @@ export default function Chats({route, navigation}) {
   }, [isFocused]);
   useEffect(() => {
     const generateConversationsByFamilyMembers = async () => {
-      let localConversations = {...conversations};
-      familyData.forEach(({relation, userId}) => {
+      let localConversations = { ...conversations };
+      familyData.forEach(({ relation, userId }) => {
         const familyMembersInConversations = Object.keys(conversations);
         if (familyMembersInConversations.includes(userId)) {
           localConversations[userId].relation = relation;
@@ -112,16 +115,18 @@ export default function Chats({route, navigation}) {
     }
   }, [familyData, conversations]);
 
+  console.log("conversations", conversations);
+
   if (!familyData) {
-    return <Text style={[styles.title, {marginTop: "5%"}]}>Loading</Text>;
+    return <Text style={[styles.title, { marginTop: "5%" }]}>Loading</Text>;
   }
   return (
-    <View style={{flex: 1, justifyContent: "space-evenly"}}>
+    <View style={{ flex: 1, justifyContent: "space-evenly" }}>
       <NavHome />
-      <Text style={[styles.title, {marginTop: "5%"}]}>
+      <Text style={[styles.title, { marginTop: "5%" }]}>
         Welcome to {route.params.kidName}'s chats!
       </Text>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         {Object.keys(conversationsWithRelations).map((relationId) => {
           return (
             <TouchableWithoutFeedback
@@ -137,7 +142,7 @@ export default function Chats({route, navigation}) {
               }
             >
               <View style={stylesNew.chatContainer}>
-                <Text style={[styles.loginButtonText, {textAlign: "left"}]}>
+                <Text style={[styles.loginButtonText, { textAlign: "left" }]}>
                   {`Chat with ${
                     conversationsWithRelations[relationId]?.relation
                       ? conversationsWithRelations[relationId]?.relation
