@@ -1,10 +1,10 @@
 import * as FileSystem from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { getAnimalPicture } from "../../../../assets/animalList";
-import { windowWidth } from "../../../../assets/utils/dimentions";
+import {Image, StyleSheet, Text, View} from "react-native";
+import {TouchableOpacity} from "react-native-gesture-handler";
+import {getAnimalPicture} from "../../../../assets/animalList";
+import {windowWidth} from "../../../../assets/utils/dimentions";
 import NavHome from "../../../../components/NavHome";
 import styles from "../../../../styles/index";
 
@@ -15,8 +15,9 @@ const stylesNew = StyleSheet.create({
   },
 });
 
-export default function GetReady({ route, navigation }) {
-  const { animal } = route.params;
+export default function GetReady({route, navigation}) {
+  const {animal, recipientId} = route.params;
+  // console.log("recipientId", recipientId);
   const takeVideo = async () => {
     let result = [];
     result = await ImagePicker.launchCameraAsync({
@@ -27,12 +28,13 @@ export default function GetReady({ route, navigation }) {
       videoMaxDuration: 10,
     });
 
-    await FileSystem.copyAsync({ from: result.uri, to: `${result.uri}.mp4` });
+    await FileSystem.copyAsync({from: result.uri, to: `${result.uri}.mp4`});
     if (!result.cancelled) {
       navigation.navigate("ImitationPreview", {
         uri: `${result.uri}.mp4`,
         animal: animal,
         type: "video",
+        recipientId: recipientId,
       });
     }
   };
@@ -43,14 +45,14 @@ export default function GetReady({ route, navigation }) {
     <View style={stylesNew.container}>
       <NavHome />
       <Image
-        style={{ resizeMode: "contain", height: "40%", marginTop: 50 }}
+        style={{resizeMode: "contain", height: "40%", marginTop: 50}}
         source={animalPicture}
       />
       <Text
         style={styles.title}
       >{`Are you ready to unleash your inner ${animal}?`}</Text>
       <TouchableOpacity onPress={takeVideo}>
-        <View style={[styles.loginButton, { width: windowWidth * 0.9 }]}>
+        <View style={[styles.loginButton, {width: windowWidth * 0.9}]}>
           <Text style={styles.loginButtonText}>Let's go!</Text>
         </View>
       </TouchableOpacity>

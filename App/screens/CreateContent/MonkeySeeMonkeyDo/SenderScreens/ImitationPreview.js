@@ -15,10 +15,12 @@ const stylesNew = StyleSheet.create({
 });
 
 export default function ImitationPreview({route, navigation}) {
+  const {recipientId} = route.params;
   const handleSend = async (videoUri) => {
     navigation.navigate("VideoUpload", {
       videoUri: videoUri,
       animal: route.params.animal,
+      recipientId: recipientId,
     });
   };
   return (
@@ -40,11 +42,15 @@ export default function ImitationPreview({route, navigation}) {
           <Text style={styles.loginButtonText}>Send</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("RecordImitation")}>
+      {/* <TouchableOpacity
+        onPress={() =>
+          navigation.navigate("RecordImitation", {recipientId: recipientId})
+        }
+      >
         <View style={styles.loginButton}>
           <Text style={styles.loginButtonText}>Redo</Text>
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </SafeAreaView>
   );
 }

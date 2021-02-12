@@ -78,6 +78,7 @@ export const FIND_KID_BY_ID = gql`
       familyMembers {
         _id
         userId {
+          _id
           firstName
         }
         relation

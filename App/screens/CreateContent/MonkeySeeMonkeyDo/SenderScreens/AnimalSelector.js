@@ -5,7 +5,9 @@ import AnimalCard from "../../../../components/AnimalCard";
 import NavHome from "../../../../components/NavHome";
 import {generateAnimalsAtRandom} from "./helpers";
 
-export default function AnimalSelector({navigation}) {
+export default function AnimalSelector({route, navigation}) {
+  const {recipientId} = route.params;
+  console.log("recipientId", route.params);
   const numberOfAnimals = 2;
   const [refreshSwitch, setRefreshSwitch] = useState(true);
   const [animalsToSelect, setAnimalsToSelect] = useState(
@@ -19,7 +21,7 @@ export default function AnimalSelector({navigation}) {
   }, [refreshSwitch]);
 
   const goToGetReadyScreen = (animal) => {
-    navigation.navigate("GetReady", {animal: animal});
+    navigation.navigate("GetReady", {animal: animal, recipientId: recipientId});
   };
 
   return (

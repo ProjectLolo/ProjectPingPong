@@ -5,7 +5,7 @@ import GameStart from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/
 import GetReady from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/GetReady";
 import ImitationPreview from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/ImitationPreview";
 import ImitationSent from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/ImitationSent";
-import RecordImitation from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/RecordImitation";
+// import RecordImitation from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/RecordImitation";
 import VideoUpload from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/VideoUpload";
 
 const Stack = createStackNavigator();
@@ -30,6 +30,7 @@ export const MonkeySeeMonkeyDoStack = ({route, state}) => {
           header: () => null,
         }}
         component={AnimalSelector}
+        initialParams={{recipientId: ""}}
       />
       <Stack.Screen
         name="GetReady"
@@ -38,13 +39,13 @@ export const MonkeySeeMonkeyDoStack = ({route, state}) => {
         }}
         component={GetReady}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="RecordImitation"
         options={{
           header: () => null,
         }}
         component={RecordImitation}
-      />
+      /> */}
       <Stack.Screen
         name="ImitationPreview"
         options={{

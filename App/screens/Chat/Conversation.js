@@ -6,16 +6,18 @@ import {FlatList, TouchableWithoutFeedback} from "react-native-gesture-handler";
 import colors from "../../assets/colors/index";
 import {windowHeight, windowWidth} from "../../assets/utils/dimentions";
 import NavHome from "../../components/NavHome";
-import {data} from "./data";
-import {
-  GET_MONKEY_PONGS,
-  GET_CONVERSATION_LIST,
-} from "../../../graphql/queries";
 
-const Item = ({url, sender, animal, kidId, receiver}) => {
-  console.log("kidId", kidId);
-
-  const align = sender === "1" ? "flex-end" : "flex-start";
+const Item = ({
+  url,
+  activeUser,
+  sender,
+  animal,
+  kidId,
+  kidName,
+  relation,
+  receiver,
+}) => {
+  const align = sender === activeUser ? "flex-end" : "flex-start";
   return (
     <View
       style={{
@@ -41,36 +43,43 @@ const Item = ({url, sender, animal, kidId, receiver}) => {
         <Text style={styles.regular}>the video: {animal}</Text>
       </View>
       <Text style={[styles.regular, {marginTop: 3}]}>
-        {sender === "1" ? "you" : "tony"}
+        {sender === activeUser ? "you" : relation ? relation : kidName}
       </Text>
     </View>
   );
 };
 
 export default function Conversation({route, navigation}) {
-  const {data, refetch} = useQuery(GET_CONVERSATION_LIST, {
-    variables: {
-      kidId: route.params.activeKid,
-    },
-    onError(error) {
-      console.log("error", error.graphQLErrors);
-    },
-    onCompleted(fetchedData) {
-      console.log("works", fetchedData);
-    },
-  });
-  console.log("data from query", data);
+  const {
+    activeUser,
+    conversation,
+    relationId,
+    kidName,
+    relation,
+  } = route.params;
+
+  //console.log("RELATION ID", relationId);
+  const data = conversation;
+
+  //console.log("data from query", data);
   const renderItem = ({item}) => {
+    //console.log("item", item);
     return (
       <TouchableWithoutFeedback
         onPress={() =>
-          navigation.navigate("GuessAnimal", {animal: item.pongId.animal})
+          navigation.navigate("GuessAnimal", {
+            animal: item.pongId.animal,
+            senderId: relationId,
+          })
         }
       >
         <Item
           url={item.url}
-          sender={item.sender}
+          activeUser={activeUser}
+          sender={item.senderId}
           kidId={item.pongId.kidId}
+          relation={relation}
+          kidName={kidName}
           animal={item.pongId.animal}
         />
       </TouchableWithoutFeedback>
@@ -93,7 +102,7 @@ export default function Conversation({route, navigation}) {
           }}
         >
           <FlatList
-            data={data.findConversationList}
+            data={data}
             key={parseInt(Math.random() * 100000)}
             keyExtractor={(item) => item._id}
             renderItem={renderItem}

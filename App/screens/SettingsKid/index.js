@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, {useState, useEffect, useContext} from "react";
 import * as firebase from "firebase";
 import * as ImagePicker from "expo-image-picker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { MaterialIcons } from "@expo/vector-icons";
+import {MaterialIcons} from "@expo/vector-icons";
 import moment from "moment";
 import {
   View,
@@ -22,10 +22,10 @@ import FamilyMembers from "./FamilyMembers";
 import ChangeFamilyMembers from "./ChangeFamilyMembers";
 import ChangeProfilePicture from "../../components/ChangeProfilePicture";
 
-import { useQuery, useMutation } from "@apollo/client";
-import { FIND_KID_BY_ID } from "../../../graphql/queries";
-import { UPDATE_KID_PROFILE, DELETE_MEMBER } from "../../../graphql/mutations";
-import { useIsFocused } from "@react-navigation/native";
+import {useQuery, useMutation} from "@apollo/client";
+import {FIND_KID_BY_ID} from "../../../graphql/queries";
+import {UPDATE_KID_PROFILE, DELETE_MEMBER} from "../../../graphql/mutations";
+import {useIsFocused} from "@react-navigation/native";
 
 import adjust from "../../styles/adjust";
 import styles from "@styles/styles";
@@ -33,10 +33,10 @@ import images from "@assets/images";
 import colors from "@assets/colors";
 import fonts from "@assets/fonts";
 
-import { AuthContext } from "../../context/Auth";
+import {AuthContext} from "../../context/Auth";
 
-export default function SettingsKid({ route, navigation }) {
-  const { signOut } = useContext(AuthContext);
+export default function SettingsKid({route, navigation}) {
+  const {signOut} = useContext(AuthContext);
   const [kidInfo, setKidInfo] = useState({
     birthdate: "",
     name: "",
@@ -45,11 +45,11 @@ export default function SettingsKid({ route, navigation }) {
   });
   const [changeProfilePicture, setChangeProfilePicture] = useState(false);
   const [changeInfo, setChangeInfo] = useState(false);
-  const [message, setMessage] = useState({ text: "", color: "" });
+  const [message, setMessage] = useState({text: "", color: ""});
   const [loading, setLoading] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const isFocused = useIsFocused();
-  const { result, kidData } = route.params;
+  const {result, kidData} = route.params;
 
   useEffect(() => {
     if (result && result.uri) {
@@ -57,7 +57,7 @@ export default function SettingsKid({ route, navigation }) {
     }
   }, [result]);
 
-  const { data, refetch, loading: dataLoading } = useQuery(FIND_KID_BY_ID, {
+  const {data, refetch, loading: dataLoading} = useQuery(FIND_KID_BY_ID, {
     variables: {
       kidId: route.params.activeKid,
     },
@@ -81,22 +81,19 @@ export default function SettingsKid({ route, navigation }) {
       });
   }, [data, refetch, isFocused, updateKid]);
 
-  const [updateKid, { updateerror }] = useMutation(UPDATE_KID_PROFILE, {
+  const [updateKid, {updateerror}] = useMutation(UPDATE_KID_PROFILE, {
     onError: (error) => console.log("mutation update kid", error.graphQLErrors),
     onCompleted(data) {
       console.log("updatekid completed", data);
-      setMessage({ text: "Submitted!!!", color: "teal" });
+      setMessage({text: "Submitted!!!", color: "teal"});
     },
   });
 
-  const [deleteFamilyMember, { data: deleteData }] = useMutation(
-    DELETE_MEMBER,
-    {
-      onCompleted(deleteData) {
-        refetch();
-      },
-    }
-  );
+  const [deleteFamilyMember, {data: deleteData}] = useMutation(DELETE_MEMBER, {
+    onCompleted(deleteData) {
+      refetch();
+    },
+  });
 
   function submitForm(e) {
     e.preventDefault();
@@ -120,10 +117,10 @@ export default function SettingsKid({ route, navigation }) {
   function showMessage() {
     if (message.text !== "" && message.color !== "") {
       setTimeout(() => {
-        setMessage({ text: "", color: "" });
+        setMessage({text: "", color: ""});
       }, 2000);
       return (
-        <View style={{ marginBottom: "5%", marginTop: "5%" }}>
+        <View style={{marginBottom: "5%", marginTop: "5%"}}>
           <Text
             style={[
               styles.cardText,
@@ -151,7 +148,7 @@ export default function SettingsKid({ route, navigation }) {
 
   const handleConfirm = (date) => {
     hideDatePicker();
-    setKidInfo({ ...kidInfo, birthdate: date });
+    setKidInfo({...kidInfo, birthdate: date});
   };
 
   //Choose picture from device
@@ -213,7 +210,7 @@ export default function SettingsKid({ route, navigation }) {
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
           console.log("File available at", downloadURL);
-          setKidInfo({ ...kidInfo, profilePic: downloadURL });
+          setKidInfo({...kidInfo, profilePic: downloadURL});
           setLoading(false);
         });
       }
@@ -266,7 +263,7 @@ export default function SettingsKid({ route, navigation }) {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "space-between" }}>
+    <View style={{flex: 1, justifyContent: "space-between"}}>
       <NavHome />
 
       <ScrollView>
@@ -279,7 +276,7 @@ export default function SettingsKid({ route, navigation }) {
                 alignSelf: "center",
                 justifyContent: "space-evenly",
                 shadowColor: "black",
-                shadowOffset: { width: 0, height: 0 },
+                shadowOffset: {width: 0, height: 0},
                 shadowOpacity: 0.05,
                 shadowRadius: 5,
                 height: Dimensions.get("window").width * 0.5,
@@ -296,12 +293,10 @@ export default function SettingsKid({ route, navigation }) {
                         height: 210,
                         alignSelf: "center",
                       }
-                    : [styles.cardImage, { width: "80%" }]
+                    : [styles.cardImage, {width: "80%"}]
                 }
                 source={
-                  kidInfo.profilePic
-                    ? { uri: kidInfo.profilePic }
-                    : images.monkey
+                  kidInfo.profilePic ? {uri: kidInfo.profilePic} : images.monkey
                 }
               />
             </View>
@@ -320,7 +315,7 @@ export default function SettingsKid({ route, navigation }) {
                 >
                   <Text style={styles.loginButtonText}>
                     SHARE FAMILY CODE:{"    "}
-                    <Text style={{ color: colors.dkPink }}>
+                    <Text style={{color: colors.dkPink}}>
                       {data && data.findKidById.code}
                     </Text>
                   </Text>
@@ -329,10 +324,7 @@ export default function SettingsKid({ route, navigation }) {
             </View>
 
             <Text
-              style={[
-                styles.inputLabel,
-                { color: colors.purple, marginTop: 20 },
-              ]}
+              style={[styles.inputLabel, {color: colors.purple, marginTop: 20}]}
             >
               Full Name
             </Text>
@@ -360,10 +352,7 @@ export default function SettingsKid({ route, navigation }) {
             </View>
 
             <Text
-              style={[
-                styles.inputLabel,
-                { color: colors.purple, paddingTop: 0 },
-              ]}
+              style={[styles.inputLabel, {color: colors.purple, paddingTop: 0}]}
             >
               Nickname
             </Text>
@@ -391,10 +380,7 @@ export default function SettingsKid({ route, navigation }) {
             </View>
 
             <Text
-              style={[
-                styles.inputLabel,
-                { color: colors.purple, paddingTop: 0 },
-              ]}
+              style={[styles.inputLabel, {color: colors.purple, paddingTop: 0}]}
             >
               Birthday
             </Text>
@@ -421,9 +407,7 @@ export default function SettingsKid({ route, navigation }) {
               </Text>
             </View>
 
-            <Text
-              style={[styles.title, { marginTop: "3%", textAlign: "left" }]}
-            >
+            <Text style={[styles.title, {marginTop: "3%", textAlign: "left"}]}>
               Family Members
             </Text>
             <View
@@ -455,7 +439,7 @@ export default function SettingsKid({ route, navigation }) {
             >
               {loading ? (
                 <ActivityIndicator
-                  style={{ marginTop: "20%", marginBottom: "25%" }}
+                  style={{marginTop: "20%", marginBottom: "25%"}}
                   size="large"
                   color={colors.purple}
                 />
@@ -467,7 +451,7 @@ export default function SettingsKid({ route, navigation }) {
                     alignSelf: "center",
                     justifyContent: "space-evenly",
                     shadowColor: "black",
-                    shadowOffset: { width: 0, height: 0 },
+                    shadowOffset: {width: 0, height: 0},
                     shadowOpacity: 0.05,
                     shadowRadius: 5,
                     height: Dimensions.get("window").width * 0.5,
@@ -484,11 +468,11 @@ export default function SettingsKid({ route, navigation }) {
                             height: 210,
                             alignSelf: "center",
                           }
-                        : [styles.cardImage, { width: "80%" }]
+                        : [styles.cardImage, {width: "80%"}]
                     }
                     source={
                       kidInfo.profilePic
-                        ? { uri: kidInfo.profilePic }
+                        ? {uri: kidInfo.profilePic}
                         : images.monkey
                     }
                   />
@@ -519,7 +503,7 @@ export default function SettingsKid({ route, navigation }) {
               style={styles.inputBox}
               placeholder="Kid's name"
               value={kidInfo.name}
-              onChangeText={(text) => setKidInfo({ ...kidInfo, name: text })}
+              onChangeText={(text) => setKidInfo({...kidInfo, name: text})}
             />
 
             <Text style={styles.inputLabel}>Nickname</Text>
@@ -528,13 +512,11 @@ export default function SettingsKid({ route, navigation }) {
               placeholder="Nickname"
               maxLength={20}
               value={kidInfo.nickName}
-              onChangeText={(text) =>
-                setKidInfo({ ...kidInfo, nickName: text })
-              }
+              onChangeText={(text) => setKidInfo({...kidInfo, nickName: text})}
             />
 
             <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
+              style={{flexDirection: "row", justifyContent: "space-between"}}
             >
               <View
                 style={{
@@ -557,7 +539,7 @@ export default function SettingsKid({ route, navigation }) {
                   <View
                     style={[
                       styles.inputBox,
-                      { width: "100%", justifyContent: "center" },
+                      {width: "100%", justifyContent: "center"},
                     ]}
                   >
                     <Text
@@ -600,12 +582,10 @@ export default function SettingsKid({ route, navigation }) {
               onCancel={hideDatePicker}
             />
 
-            <Text
-              style={[styles.title, { marginTop: "10%", textAlign: "left" }]}
-            >
+            <Text style={[styles.title, {marginTop: "10%", textAlign: "left"}]}>
               Family Members
             </Text>
-            <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+            <View style={{flexDirection: "row", flexWrap: "wrap"}}>
               {data &&
                 data.findKidById.familyMembers.map((member) => {
                   return (

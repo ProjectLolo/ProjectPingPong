@@ -85,11 +85,12 @@ const styles = StyleSheet.create({
 });
 
 export default function VideoUpload({route, navigation}) {
-  const {videoUri, animal, activeKid, userId} = route.params;
+  const {videoUri, animal, activeKid, userId, recipientId} = route.params;
+  console.log("recipient Id", recipientId);
   const [loading, setLoading] = useState(false);
   const [loadingTime, setLoadingTime] = useState("");
   const [videoFirebaseUrl, setVideoFirebaseUrl] = useState(null);
-  const [recipientId, setRecipientId] = useState("");
+  //const [recipientId, setRecipientId] = useState("");
 
   const [createNewMonkeyPong, {error}] = useMutation(CREATE_NEW_MONKEYPONG, {
     onError: (error) => {
@@ -120,7 +121,10 @@ export default function VideoUpload({route, navigation}) {
         animal: animal,
         kidId: activeKid,
         url: videoFirebaseUrl,
-        recipientId: recipientId,
+        recipientId:
+          data?.findKidById?.userId === userId
+            ? recipientId
+            : data?.findKidById?.userId,
       },
     });
   }
@@ -128,12 +132,12 @@ export default function VideoUpload({route, navigation}) {
   // Upload Video
   useEffect(() => {
     refetch();
-    console.log("kid user Id", data?.findKidById?.userId, userId);
-    setRecipientId(
-      data?.findKidById?.userId === userId
-        ? "60181ec6499d0d0004edb18f"
-        : data?.findKidById?.userId
-    );
+    // console.log("kid user Id", data?.findKidById?.userId, userId);
+    // setRecipientId(
+    //   data?.findKidById?.userId === userId
+    //     ? "60181ec6499d0d0004edb18f"
+    //     : data?.findKidById?.userId
+    // );
     uploadVideo(videoUri);
   }, [videoUri]);
 

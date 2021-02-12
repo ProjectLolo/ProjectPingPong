@@ -1,15 +1,15 @@
 import colors from "@assets/colors";
-import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
-import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {useNavigation} from "@react-navigation/native";
+import React, {useState} from "react";
+import {Image, SafeAreaView, StyleSheet, Text, View} from "react-native";
 import * as Animatable from "react-native-animatable";
 import {
   FlatList,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
-import { getAnimalPicture } from "../../../../assets/animalList";
-import { generateAnimalsAtRandom, shuffle } from "../SenderScreens/helpers";
+import {getAnimalPicture} from "../../../../assets/animalList";
+import {generateAnimalsAtRandom, shuffle} from "../SenderScreens/helpers";
 
 const stylesNew = StyleSheet.create({
   container: {
@@ -26,7 +26,7 @@ const stylesNew = StyleSheet.create({
   },
 });
 
-const Item = ({ animal, correct, id }) => {
+const Item = ({animal, correct, id, senderId}) => {
   const navigation = useNavigation();
   const [animate, setAnimate] = useState(false);
 
@@ -34,7 +34,7 @@ const Item = ({ animal, correct, id }) => {
     if (animal !== correct) {
       setAnimate(true);
     } else {
-      navigation.navigate("Success");
+      navigation.navigate("Success", {relationId: senderId});
     }
   };
 
@@ -56,7 +56,7 @@ const Item = ({ animal, correct, id }) => {
         }}
       >
         <Image
-          style={{ resizeMode: "contain", height: "90%" }}
+          style={{resizeMode: "contain", height: "90%"}}
           source={getAnimalPicture(animal)}
         />
         <Text>{animal}</Text>
@@ -65,20 +65,19 @@ const Item = ({ animal, correct, id }) => {
   );
 };
 
-export default function GuessAnimal({ route, navigation }) {
-  const { animal } = route.params;
-  const wrongAnswers = generateAnimalsAtRandom(3, [animal]);
+export default function GuessAnimal({route, navigation}) {
+  const {animal, senderId} = route.params;
 
-  console.log("animal is", animal);
+  const wrongAnswers = generateAnimalsAtRandom(3, [animal]);
 
   const possibleAnswers = wrongAnswers.concat(animal);
 
   const possibleAnswersShuffled = shuffle(possibleAnswers);
 
-  const renderItem = ({ item, index }) => {
+  const renderItem = ({item, index}) => {
     return (
       <View key={index}>
-        <Item animal={item} correct={animal} id={index} />
+        <Item animal={item} correct={animal} id={index} senderId={senderId} />
       </View>
     );
   };
@@ -86,12 +85,12 @@ export default function GuessAnimal({ route, navigation }) {
   return (
     <SafeAreaView style={stylesNew.container}>
       <Text>guessssssss?</Text>
-      <TouchableOpacity onPress={() => navigation.navigate("Success")}>
+      <TouchableOpacity>
         <View style={stylesNew.animalContainer}>
           <Text>{animal}</Text>
         </View>
       </TouchableOpacity>
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <FlatList
           data={possibleAnswersShuffled}
           keyExtractor={(_, i) => i}

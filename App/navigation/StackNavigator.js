@@ -175,7 +175,6 @@ export default function authNavigator({route, state}) {
             header: () => null,
           }}
           component={Success}
-          initialParams={state}
         />
       </Stack.Navigator>
     </NavigationContainer>
