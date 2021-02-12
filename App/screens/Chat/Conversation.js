@@ -59,7 +59,7 @@ export default function Conversation({route, navigation}) {
   } = route.params;
 
   //console.log("RELATION ID", relationId);
-  const data = conversation;
+  const data = conversation.reverse();
 
   //console.log("data from query", data);
   const renderItem = ({item}) => {

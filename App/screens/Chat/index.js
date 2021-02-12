@@ -81,11 +81,6 @@ export default function Chats({route, navigation}) {
       console.log("error", error.graphQLErrors);
     },
     onCompleted(fetchedData) {
-      console.log(
-        fetchedData.findKidById.familyMembers.map(({relation, userId}) => {
-          return {relation: relation, userId: userId._id};
-        })
-      );
       setFamilyData(
         fetchedData.findKidById.familyMembers.map(({relation, userId}) => {
           return {relation: relation, userId: userId._id};
@@ -116,7 +111,7 @@ export default function Chats({route, navigation}) {
       generateConversationsByFamilyMembers();
     }
   }, [familyData, conversations]);
-  console.log("conversationsWithRelations ", conversationsWithRelations);
+
   if (!familyData) {
     return <Text style={[styles.title, {marginTop: "5%"}]}>Loading</Text>;
   }
