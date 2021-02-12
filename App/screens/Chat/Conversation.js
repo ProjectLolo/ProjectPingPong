@@ -70,6 +70,7 @@ export default function Conversation({route, navigation}) {
           navigation.navigate("GuessAnimal", {
             animal: item.pongId.animal,
             senderId: relationId,
+            url: item.pongId.url,
           })
         }
       >

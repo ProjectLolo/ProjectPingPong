@@ -1,7 +1,16 @@
 import colors from "@assets/colors";
 import {useNavigation} from "@react-navigation/native";
+import {Video, AVPlaybackStatus} from "expo-av";
 import React, {useState} from "react";
-import {Image, SafeAreaView, StyleSheet, Text, View} from "react-native";
+import {
+  Button,
+  Dimensions,
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import * as Animatable from "react-native-animatable";
 import {
   FlatList,
@@ -10,6 +19,7 @@ import {
 } from "react-native-gesture-handler";
 import {getAnimalPicture} from "../../../../assets/animalList";
 import {generateAnimalsAtRandom, shuffle} from "../SenderScreens/helpers";
+import VideoPlayer from "./VideoPlayer";
 
 const stylesNew = StyleSheet.create({
   container: {
@@ -66,9 +76,11 @@ const Item = ({animal, correct, id, senderId}) => {
 };
 
 export default function GuessAnimal({route, navigation}) {
-  const {animal, senderId} = route.params;
+  const {animal, url, senderId} = route.params;
 
-  const wrongAnswers = generateAnimalsAtRandom(3, [animal]);
+  const [wrongAnswers, setWrongAnswers] = useState(
+    generateAnimalsAtRandom(3, [animal])
+  );
 
   const possibleAnswers = wrongAnswers.concat(animal);
 
@@ -84,12 +96,7 @@ export default function GuessAnimal({route, navigation}) {
 
   return (
     <SafeAreaView style={stylesNew.container}>
-      <Text>guessssssss?</Text>
-      <TouchableOpacity>
-        <View style={stylesNew.animalContainer}>
-          <Text>{animal}</Text>
-        </View>
-      </TouchableOpacity>
+      <VideoPlayer url={url} />
       <View style={{flex: 1}}>
         <FlatList
           data={possibleAnswersShuffled}
