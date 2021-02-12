@@ -12,10 +12,15 @@ import Images from "../../../../assets";
 import colors from "@assets/colors";
 import {Video} from "expo-av";
 
-import {useMutation} from "@apollo/client";
+import {useMutation, useQuery} from "@apollo/client";
 import {CREATE_NEW_MONKEYPONG} from "../../../../../graphql/mutations";
 
 import {AuthContext} from "../../../../context/Auth";
+import {
+  GET_LOVEBANKS,
+  GET_USER_ASSOCIATED_TO_KID,
+} from "../../../../../graphql/queries";
+import {setUserId} from "expo-firebase-analytics";
 const style = StyleSheet.create({
   iconContainer: {
     justifyContent: "center",
@@ -80,10 +85,12 @@ const styles = StyleSheet.create({
 });
 
 export default function VideoUpload({route, navigation}) {
-  const {videoUri, animal, activeKid} = route.params;
+  const {videoUri, animal, activeKid, userId, recipientId} = route.params;
+  console.log("recipient Id", recipientId);
   const [loading, setLoading] = useState(false);
   const [loadingTime, setLoadingTime] = useState("");
   const [videoFirebaseUrl, setVideoFirebaseUrl] = useState(null);
+  //const [recipientId, setRecipientId] = useState("");
 
   const [createNewMonkeyPong, {error}] = useMutation(CREATE_NEW_MONKEYPONG, {
     onError: (error) => {
@@ -95,6 +102,18 @@ export default function VideoUpload({route, navigation}) {
     },
   });
 
+  const {data, refetch} = useQuery(GET_USER_ASSOCIATED_TO_KID, {
+    variables: {
+      kidId: activeKid,
+    },
+    onError(error) {
+      console.log(JSON.stringify(error, null, 2));
+    },
+    onCompleted(fetchedData) {
+      console.log("works", fetchedData);
+    },
+  });
+
   function handleSend() {
     console.log("param for query", animal, activeKid, videoFirebaseUrl);
     createNewMonkeyPong({
@@ -102,12 +121,23 @@ export default function VideoUpload({route, navigation}) {
         animal: animal,
         kidId: activeKid,
         url: videoFirebaseUrl,
+        recipientId:
+          data?.findKidById?.userId === userId
+            ? recipientId
+            : data?.findKidById?.userId,
       },
     });
   }
 
   // Upload Video
   useEffect(() => {
+    refetch();
+    // console.log("kid user Id", data?.findKidById?.userId, userId);
+    // setRecipientId(
+    //   data?.findKidById?.userId === userId
+    //     ? "60181ec6499d0d0004edb18f"
+    //     : data?.findKidById?.userId
+    // );
     uploadVideo(videoUri);
   }, [videoUri]);
 
@@ -150,7 +180,6 @@ export default function VideoUpload({route, navigation}) {
         function () {
           // Handle successful uploads on complete
           uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-            console.log("File available at", downloadURL);
             setVideoFirebaseUrl(downloadURL);
             setLoading(false);
           });

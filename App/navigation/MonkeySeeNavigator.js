@@ -5,13 +5,14 @@ import GameStart from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/
 import GetReady from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/GetReady";
 import ImitationPreview from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/ImitationPreview";
 import ImitationSent from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/ImitationSent";
-import RecordImitation from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/RecordImitation";
+// import RecordImitation from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/RecordImitation";
 import VideoUpload from "../screens/CreateContent/MonkeySeeMonkeyDo/SenderScreens/VideoUpload";
 
 const Stack = createStackNavigator();
 
 export const MonkeySeeMonkeyDoStack = ({route, state}) => {
-  const {activeKid} = route.params;
+  const {activeKid, kidName, activeUser} = route.params;
+  //console.log("params", route.params.activeUser);
 
   return (
     <Stack.Navigator initialRouteName="GameStart">
@@ -21,6 +22,7 @@ export const MonkeySeeMonkeyDoStack = ({route, state}) => {
           header: () => null,
         }}
         component={GameStart}
+        initialParams={{kidName}}
       />
       <Stack.Screen
         name="AnimalSelector"
@@ -28,6 +30,7 @@ export const MonkeySeeMonkeyDoStack = ({route, state}) => {
           header: () => null,
         }}
         component={AnimalSelector}
+        initialParams={{recipientId: ""}}
       />
       <Stack.Screen
         name="GetReady"
@@ -36,13 +39,13 @@ export const MonkeySeeMonkeyDoStack = ({route, state}) => {
         }}
         component={GetReady}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="RecordImitation"
         options={{
           header: () => null,
         }}
         component={RecordImitation}
-      />
+      /> */}
       <Stack.Screen
         name="ImitationPreview"
         options={{
@@ -63,29 +66,8 @@ export const MonkeySeeMonkeyDoStack = ({route, state}) => {
           header: () => null,
         }}
         component={VideoUpload}
-        initialParams={{activeKid: activeKid}}
+        initialParams={{activeKid: activeKid, userId: activeUser}}
       />
-      {/* <Stack.Screen
-        name="GuessStart"
-        options={{
-          header: () => null,
-        }}
-        component={GuessStart}
-      />
-      <Stack.Screen
-        name="GuessAnimal"
-        options={{
-          header: () => null,
-        }}
-        component={GuessAnimal}
-      />
-      <Stack.Screen
-        name="Success"
-        options={{
-          header: () => null,
-        }}
-        component={Success}
-      /> */}
     </Stack.Navigator>
   );
 };

@@ -78,6 +78,7 @@ export const FIND_KID_BY_ID = gql`
       familyMembers {
         _id
         userId {
+          _id
           firstName
         }
         relation
@@ -94,6 +95,35 @@ export const FIND_USER_BY_ID = gql`
       lastName
       email
       profilePic
+    }
+  }
+`;
+export const GET_MONKEY_PONGS = gql`
+  query monkeyPongs($kidId: ID!) {
+    monkeyPongs(kidId: $kidId) {
+      animal
+    }
+  }
+`;
+
+export const GET_USER_ASSOCIATED_TO_KID = gql`
+  query findKidById($kidId: String!) {
+    findKidById(kidId: $kidId) {
+      userId
+    }
+  }
+`;
+export const GET_CONVERSATION_LIST = gql`
+  query findConversationList {
+    findConversationList {
+      _id
+      senderId
+      recipientId
+      pongId {
+        url
+        animal
+        kidId
+      }
     }
   }
 `;
