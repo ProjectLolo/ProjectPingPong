@@ -1,13 +1,11 @@
 import styles from "@styles/styles";
-import { Video } from "expo-av";
-import React, { useRef } from "react";
-import { Text, View } from "react-native";
-import {
-  FlatList,
-  TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
+//import {Video} from "expo-av";
+import React, {useRef} from "react";
+import {Text, View, Image} from "react-native";
+import {FlatList, TouchableWithoutFeedback} from "react-native-gesture-handler";
+import images from "../../assets";
 import colors from "../../assets/colors/index";
-import { windowHeight, windowWidth } from "../../assets/utils/dimentions";
+import {windowHeight, windowWidth} from "../../assets/utils/dimentions";
 import NavHome from "../../components/NavHome";
 
 const Item = ({
@@ -35,7 +33,7 @@ const Item = ({
   //     console.warn(error);
   //   }
   // };
-
+  // console.log("url----->", url);
   return (
     <View
       style={{
@@ -52,30 +50,36 @@ const Item = ({
     >
       <View
         style={{
-          backgroundColor: "lightgrey",
+          backgroundColor: "white",
           height: "80%",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
+        <Image
+          style={{height: "100%", width: "100%"}}
+          source={images.AnimalsThumbnail}
+          style={{height: "100%", width: "100%"}}
+        />
+
         {/* <Text style={styles.regular}>the video: {animal}</Text> */}
-        <Video
+        {/* <Video
           ref={video}
-          style={{ height: "100%", width: "100%" }}
-          source={{ uri: url }}
+          style={{height: "100%", width: "100%"}}
+          source={{uri: url}}
           shouldPlay={false}
           isLooping={false}
           resizeMode={Video.RESIZE_MODE_COVER}
-        />
+        /> */}
       </View>
-      <Text style={[styles.regular, { marginTop: 3 }]}>
+      <Text style={[styles.regular, {marginTop: 3}]}>
         {sender === activeUser ? "you" : relation ? relation : kidName}
       </Text>
     </View>
   );
 };
 
-export default function Conversation({ route, navigation }) {
+export default function Conversation({route, navigation}) {
   const {
     activeUser,
     conversation,
@@ -88,7 +92,7 @@ export default function Conversation({ route, navigation }) {
   const data = conversation.reverse();
   console.log("data from query", data);
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({item}) => {
     //console.log("item", item);
     return (
       <TouchableWithoutFeedback
@@ -122,7 +126,7 @@ export default function Conversation({ route, navigation }) {
       }}
     >
       <NavHome />
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <View
           style={{
             width: windowWidth,

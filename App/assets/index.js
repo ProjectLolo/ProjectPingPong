@@ -39,6 +39,7 @@ const images = {
   RecShare: require("./images/Rectangle6.png"),
   RecFun: require("./images/Rectangle7.png"),
   AnimalQuiz: require("./images/08ANIMAL_QUIZ.png"),
+  AnimalsThumbnail: require("./images/animals-thumbnail.png"),
 };
 
 export default images;

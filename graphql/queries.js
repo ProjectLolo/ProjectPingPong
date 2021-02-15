@@ -119,6 +119,7 @@ export const GET_CONVERSATION_LIST = gql`
       _id
       senderId
       recipientId
+      createdAt
       pongId {
         url
         animal
